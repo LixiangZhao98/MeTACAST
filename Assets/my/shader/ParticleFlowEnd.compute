@@ -1,0 +1,117 @@
+// Each #kernel tells which function to compile; you can have many kernels
+ #include "UnityCG.cginc"
+#pragma kernel ParticleFlowEnd
+
+RWStructuredBuffer<float3> flowEnd;
+RWStructuredBuffer<float3> Gradient;
+RWStructuredBuffer<float3> ParPos;
+float4 gridStep;
+float4 gridNum;
+float4 GridMinPos;
+float4 parNum;
+float3 InterpolateGradient(float3 v) ;
+ int NodePosToIndex(int z, int y, int x);
+  
+
+//  //Dispatch(5,3,2)
+//[numthreads(10,8,3)]
+//void CSMain (uint3 id : SV_DispatchThreadID)
+//{
+//	int idx = id.x + id.y * 5 * 10 + id.z * 5 * 10 * 3 * 8;
+//	testArray1[idx] = id.x;
+//	//testArray1[idx] = id.y;
+//}
+
+//[numthreads(10, 8, 3)]
+//void CSMain2(uint3 id : SV_GroupThreadID)
+//{
+//	int idx = id.x + id.y * 10 + id.z * 10 * 8;
+//	testArray1[idx] = id.x;
+//	//testArray1[idx] = id.y;
+//}
+
+
+
+[numthreads(8,8,8)]
+void ParticleFlowEnd (uint idx : SV_GROUPINDEX)
+{  
+//int idx = id.x + id.y * parNum.x + id.z * parNum.x*8;
+        float firststepfactor = 20;
+        float step = (gridStep.x + gridStep.y+ gridStep.z) / (float)3/(float) 10;
+        int index = 0;
+        float3 oldPos = ParPos[idx];
+        float3 newPos = ParPos[idx] + float3(0,0,0);
+
+        while (index <= 1000)
+        {
+            float3 g = normalize(InterpolateGradient(oldPos)) * step;
+            oldPos = newPos;
+            newPos =newPos+ g;
+            index++;
+          
+         
+            
+        }
+           flowEnd[idx]=newPos;
+  
+}
+
+    int NodePosToIndex(int z, int y, int x)
+{
+    return (z) * gridNum.x * gridNum.y + (y) * gridNum.x + x;
+
+}
+ float3 InterpolateGradient(float3 v) //for gradient interpolation
+    {
+        double x_ = v.x, y_ = v.y, z_ = v.z;
+        if (x_ < GridMinPos.x || y_ <  GridMinPos.y || z_ <  GridMinPos.z)
+            return float3(0,0,0);
+
+        double x_scaled = (x_ - GridMinPos.x )/ gridStep.x;
+        int xbin = (int)x_scaled;
+        double xratio = x_scaled - xbin;
+
+        double y_scaled = (y_ - GridMinPos.y )/ gridStep.y;
+        int ybin = (int)y_scaled;
+        double yratio = y_scaled - ybin;
+
+        double z_scaled = (z_ - GridMinPos.z )/ gridStep.z;
+        int zbin = (int)z_scaled;
+        double zratio = z_scaled - zbin;
+        double dens1, dens2, dens3, dens4;
+        if (zbin >= gridNum.z- 1 || ybin >= gridNum.y- 1  || xbin >=gridNum.x- 1 || zbin <= 0 || xbin <= 0 || ybin <= 0)
+        { return float3(0,0,0); }
+        else
+        {
+        dens1 = Gradient[NodePosToIndex(zbin, ybin, xbin)].x + (Gradient[NodePosToIndex(zbin, ybin, xbin + 1)].x  - Gradient[NodePosToIndex(zbin, ybin, xbin)].x ) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin, ybin + 1, xbin)].x  + (Gradient[NodePosToIndex(zbin, ybin + 1, xbin + 1)].x  - Gradient[NodePosToIndex(zbin, ybin + 1, xbin)].x ) * xratio;
+        dens3 = dens1 + (dens2 - dens1) * yratio;
+
+        dens1 = Gradient[NodePosToIndex(zbin + 1, ybin, xbin)].x  + (Gradient[NodePosToIndex(zbin + 1, ybin, xbin + 1)].x  - Gradient[NodePosToIndex(zbin + 1, ybin, xbin)].x ) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)].x  + (Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)].x  - Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)].x ) * xratio;
+        dens4 = dens1 + (dens2 - dens1) * yratio;
+            double x = dens3 + (dens4 - dens3) * zratio;
+            //--------------------------------------------------------
+
+        dens1 = Gradient[NodePosToIndex(zbin, ybin, xbin)].y + (Gradient[NodePosToIndex(zbin, ybin, xbin + 1)].y - Gradient[NodePosToIndex(zbin, ybin, xbin)].y) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin, ybin + 1, xbin)].y + (Gradient[NodePosToIndex(zbin, ybin + 1, xbin + 1)].y - Gradient[NodePosToIndex(zbin, ybin + 1, xbin)].y) * xratio;
+        dens3 = dens1 + (dens2 - dens1) * yratio;
+
+        dens1 = Gradient[NodePosToIndex(zbin + 1, ybin, xbin)].y + (Gradient[NodePosToIndex(zbin + 1, ybin, xbin + 1)].y - Gradient[NodePosToIndex(zbin + 1, ybin, xbin)].y) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)].y + (Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)].y - Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)].y) * xratio;
+        dens4 = dens1 + (dens2 - dens1) * yratio;
+            double y = dens3 + (dens4 - dens3) * zratio;
+            //----------------------------------------------------------
+
+        dens1 = Gradient[NodePosToIndex(zbin, ybin, xbin)].z + (Gradient[NodePosToIndex(zbin, ybin, xbin + 1)].z - Gradient[NodePosToIndex(zbin, ybin, xbin)].z) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin, ybin + 1, xbin)].z + (Gradient[NodePosToIndex(zbin, ybin + 1, xbin + 1)].z - Gradient[NodePosToIndex(zbin, ybin + 1, xbin)].z) * xratio;
+        dens3 = dens1 + (dens2 - dens1) * yratio;
+
+        dens1 = Gradient[NodePosToIndex(zbin + 1, ybin, xbin)].z + (Gradient[NodePosToIndex(zbin + 1, ybin, xbin + 1)].z - Gradient[NodePosToIndex(zbin + 1, ybin, xbin)].z) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)].z + (Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)].z - Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)].z) * xratio;
+        dens4 = dens1 + (dens2 - dens1) * yratio;
+            double z = dens3 + (dens4 - dens3) * zratio;
+            //----------------------------------------------------------
+            return  float3((float)x, (float)y, (float)z);
+        }
+    }

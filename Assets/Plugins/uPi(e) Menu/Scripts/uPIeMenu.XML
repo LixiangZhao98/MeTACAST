@@ -1,0 +1,563 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>uPIeMenu</name>
+    </assembly>
+    <members>
+        <member name="T:uPIe.uPIeEventTrigger">
+            <summary>
+                This handles pointer events
+            </summary>
+        </member>
+        <member name="E:uPIe.uPIeEventTrigger.PointerEnterEvent">
+            <summary>
+                Pointer enter event
+            </summary>
+        </member>
+        <member name="E:uPIe.uPIeEventTrigger.PointerExitEvent">
+            <summary>
+                Pointer exit event
+            </summary>
+        </member>
+        <member name="E:uPIe.uPIeEventTrigger.SubmitEvent">
+            <summary>
+                Submit event
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeEventTrigger.OnPointerEnter(UnityEngine.EventSystems.PointerEventData)">
+            <summary>
+                Called back on pointer enter
+            </summary>
+            <param name="eventData"></param>
+        </member>
+        <member name="M:uPIe.uPIeEventTrigger.OnPointerExit(UnityEngine.EventSystems.PointerEventData)">
+            <summary>
+                Called back on pointer exit
+            </summary>
+            <param name="eventData"></param>
+        </member>
+        <member name="M:uPIe.uPIeEventTrigger.OnSubmit(UnityEngine.EventSystems.BaseEventData)">
+            <summary>
+                Called back on submit
+            </summary>
+            <param name="eventData"></param>
+        </member>
+        <member name="T:uPIe.uPIeMenu">
+            <summary>
+                Contains the main uPIe menu (runtime) logic
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.ControllerDeadzone">
+            <summary>
+                Gets or sets the controller deadzone. This means, when is the analogue stick
+                of the controller considered to be centered.
+            </summary>
+            <value>
+                The controller deadzone.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.EnableSelecting">
+            <summary>
+                Gets or sets a value controlling whether selecting menu options is enabled or not.
+                This is mostly used to enable or disable a parent menu when a submenu is
+                opened or closed.
+            </summary>
+            <value>
+              <c>true</c> if it should be able to select the options from this menu; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.DefaultSelected">
+            <summary>
+                Gets or sets the option (button or other selectable) that is selected by default.
+                This means this is what is selected, when the controllers analogue stick is centered
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.HorizontalInputName">
+            <summary>
+                If unity default input is selected (no custom input) this is what the horizontal input
+                is called in the input manager
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.VerticalInputName">
+            <summary>
+                If unity default input is selected (no custom input) this is what the vertical input
+                is called in the input manager
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.ConfirmInputName">
+            <summary>
+                If unity default input is selected (no custom input) this is what the confirm input
+                is called in the input manager
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.ConfirmButtonDown">
+            <summary>
+                If unity default input is used this returns, if the confirm button was pressed last frame
+                Note: you can set this value too, but this is only recommended, if you want to create your own
+                      customized version of uPIe
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.CurrentlyActiveOption">
+            <summary>
+                Gets the menu option, that is currently active.
+                Note: you can set the value too, but this should only be done, if you
+                      want to create your own, customized version of uPIe.
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.ConstrainIndicatorPosition">
+            <summary>
+                Gets or sets the value that determines whether to constrain the indicator position to the
+                nearest menu option. This only makes a difference, when using menus that are not full circle.
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.CircleSize">
+            <summary>
+                Gets or sets the size of the circle menu.
+            </summary>
+            <value>
+                The size of the circle.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.KeepSelectedOption">
+            <summary>
+                Gets or sets the the value, that determines whether to keep the most recently selected option
+                with gamepad, when the stick is in "origin" position
+            </summary>
+        </member>
+        <member name="P:uPIe.uPIeMenu.CurrentDirection">
+            <summary>
+                Gets or sets the current direction from center of the menu
+                to pointer (mouse or analogue stick direction)
+            </summary>
+            <value>
+                The current direction.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.UseCustomInputSystem">
+            <summary>
+                Gets or sets a value indicating whether to use a custom input system or the unity default one.
+            </summary>
+            <value>
+                <c>true</c> if custom input system should be used; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.CustomInput">
+            <summary>
+                If we choose to use a custom input system, we need to set the direction (for analogue stick)
+                or position (for mouse) here
+            </summary>
+            <value>
+            The custom input.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.SelectedPieceId">
+            <summary>
+                Gets or sets the selected piece identifier.
+            </summary>
+            <value>
+                The selected piece identifier.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.StartDegOffset">
+            <summary>
+                Gets or sets the offset in degrees where to start / where the first menu option should be
+            </summary>
+            <value>
+                The start offset in degrees
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.MenuOptionPrefab">
+            <summary>
+                Gets or sets the menu option prefab to use when creating new
+                menu options
+            </summary>
+            <value>
+                The prefab asset to use
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.MenuOptions">
+            <summary>
+                Gets or sets the menu options.
+            </summary>
+            <value>
+                The menu options.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.ApplyIndicatorRotation">
+            <summary>
+                Gets or sets a value indicating whether to apply indicator rotation or not.
+            </summary>
+            <value>
+                <c>true</c> if indicator rotation should be applied; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.IndicatorGraphic">
+            <summary>
+                Gets or sets the indicator graphic.
+            </summary>
+            <value>
+                The indicator graphic.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.ControlWithGamepad">
+            <summary>
+                Gets or sets a value indicating whether to control with gamepad or not.
+            </summary>
+            <value>
+              <c>true</c> if controlling with gamepad; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.DeselectOptionIfOutsideBorders">
+            <summary>
+                Gets or sets a value indicating whether to deselect option if outside the menu borders.
+                Note: only makes a difference when using menus that are not full circle
+            </summary>
+            <value>
+                <c>true</c> if the menu option should be deselected when outside the menus borders; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.AlignRadius">
+            <summary>
+                Gets or sets the align radius (align helper in the inspector)
+            </summary>
+            <value>
+                The align radius.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.AlignRotation">
+            <summary>
+                Gets or sets a value indicating whether the align helper (inspector) should also align rotation or not.
+            </summary>
+            <value>
+              <c>true</c> if menu option rotation should be aligned; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.AlignUpDirection">
+            <summary>
+                Gets or sets the up direction used for alignment.
+            </summary>
+            <value>
+                The align up direction.
+            </value>
+        </member>
+        <member name="P:uPIe.uPIeMenu.AlignForwardDirection">
+            <summary>
+                Gets or sets the forward direction used for alignment.
+            </summary>
+            <value>
+                The align forward direction.
+            </value>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetDirection">
+            <summary>
+                Gets the current direction from the center of the menu to the pointer (analogue stick direction or mouse position).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.PollInput">
+            <summary>
+                Polls the input.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetIndicatorPosition(UnityEngine.Vector2@)">
+            <summary>
+                Gets the indicator position.
+            </summary>
+            <param name="resultPosition">The resulting position.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetIndicatorPosition(UnityEngine.Vector2,UnityEngine.Vector2@)">
+            <summary>
+                Gets the indicator position.
+            </summary>
+            <param name="dir">The direction.</param>
+            <param name="resultPosition">The resulting position.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.ConfirmCurrentSelection">
+            <summary>
+                Confirms the current selection (simulates a click respectively button down on the currently selected
+                menu option).
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetSignedAngle(UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+                Gets the signed angle between two directions.
+            </summary>
+            <param name="from">From.</param>
+            <param name="to">To.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetCanvas">
+            <summary>
+                Returns the Canvas-Component related to this uPIe Menu.
+                Reads <see cref="F:uPIe.uPIeMenu.canvas"/> field (private), falls back to the root object if not provided
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetMousePosition">
+            <summary>
+                Gets the mouse position.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetAngle(UnityEngine.Vector2,System.Single,System.Boolean)">
+            <summary>
+                Gets the angle from a direction by offset and clamps between 0 and 360.
+                (starts at 0 again, if bigger than 360)
+            </summary>
+            <param name="dir">The direction.</param>
+            <param name="degOffset">The offset in degrees.</param>
+            <param name="zeroTo360">if set to <c>true</c> the resulting angle will not get bigger than 360�.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetOffsettedDir(UnityEngine.Vector2,System.Single)">
+            <summary>
+                Gets the offsetted direction.
+            </summary>
+            <param name="dir">The direction.</param>
+            <param name="offset">The offset.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetPieceByAngle(System.Single)">
+            <summary>
+                Gets the piece (menu option) by angle.
+            </summary>
+            <param name="angle">The angle.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddMenuOptionCallback(UnityEngine.UI.Selectable)">
+            <summary>
+                Adds the menu option callback.
+            </summary>
+            <param name="trigger">The trigger.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddDefaultSelectableCallback(UnityEngine.UI.Selectable)">
+            <summary>
+                Adds the default selectable callback.
+            </summary>
+            <param name="trigger">The trigger.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.CreateCallbacks">
+            <summary>
+                Creates the callbacks.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.SelectRelatedOption">
+            <summary>
+                Selects the related option. The id stored in the field <see cref="P:uPIe.uPIeMenu.SelectedPieceId"/>
+                is used.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.SelectRelatedOption(System.Int32)">
+            <summary>
+                Selects the related option by a given id.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveIndicator">
+            <summary>
+                Removes the indicator.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetStartDirection(System.Single)">
+            <summary>
+                Gets the start direction.
+            </summary>
+            <param name="additionalOffset">The additional offset.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetEndDirection(UnityEngine.Vector3)">
+            <summary>
+                Gets the end direction.
+            </summary>
+            <param name="startDir">The start dir.</param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.GetEndDirection">
+            <summary>
+                Gets the end direction.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddButton(System.String,System.Boolean)">
+            <summary>
+                Adds a new button (without adding it to the menu option list).
+                In most cases you should use <see cref="M:uPIe.uPIeMenu.AddMenuOption"/> as
+                this sets up the button correctly and adds it to the menu options list
+            </summary>
+            <param name="name">A name for the button.</param>
+            <param name="tryCopyFromLastMenuOption">
+                If set to true (default) this method will try to copy
+                the most recently added menu option button
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.InitMenuOption(UnityEngine.GameObject,System.String)">
+            <summary>
+                Initialize a newly created menu option gameobject instance
+            </summary>
+            <param name="instance">The gameobject instance you want to be treated as a menu option</param>
+            <param name="name">Name the menu option gameobject (optional)</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddMenuOption">
+            <summary>
+                Adds a new menu option (button) to the menu.
+            </summary>
+            <returns>The newly added menu option button</returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddMenuOptionAndRescaleX">
+            <summary>
+                <see cref="M:uPIe.uPIeMenu.AddMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)"/> takes more options than this, so from a script
+                you should probably use that method. But unity only allows one parameter when calling
+                methods from an event trigger (like OnClick) in the inspector, so if you want to
+                do that, use this method.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddMenuOptionAndRescaleY">
+            <summary>
+                <see cref="M:uPIe.uPIeMenu.AddMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)"/> takes more options than this, so from a script
+                you should probably use that method. But unity only allows one parameter when calling
+                methods from an event trigger (like OnClick) in the inspector, so if you want to
+                do that, use this method.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddMenuOptionAndRescaleZ">
+            <summary>
+                <see cref="M:uPIe.uPIeMenu.AddMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)"/> takes more options than this, so from a script
+                you should probably use that method. But unity only allows one parameter when calling
+                methods from an event trigger (like OnClick) in the inspector, so if you want to
+                do that, use this method.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.AddMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+                Adds a new menu option (button) to the menu and automatically realigns the menu options
+                according to what is set up in the alignment options.
+                See <see cref="P:uPIe.uPIeMenu.AlignRadius"/>, <see cref="P:uPIe.uPIeMenu.AlignRotation"/>, <see cref="P:uPIe.uPIeMenu.AlignUpDirection"/>, <see cref="P:uPIe.uPIeMenu.AlignForwardDirection"/>
+            </summary>
+            <param name="autoRescaleX">if set to <c>true</c> automatically rescales the x value.</param>
+            <param name="autoRescaleY">if set to <c>true</c> automatically rescales the y value.</param>
+            <param name="autoRescaleZ">if set to <c>true</c> automatically rescales the z value.</param>
+            <returns>The newly added menu option button</returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveMenuOptionAndRescaleX">
+            <summary>
+                <see cref="M:uPIe.uPIeMenu.RemoveMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)"/> takes more options than this, so from a script
+                you should probably use that method. But unity only allows one parameter when calling
+                methods from an event trigger (like OnClick) in the inspector, so if you want to
+                do that, use this method.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveMenuOptionAndRescaleY">
+            <summary>
+                <see cref="M:uPIe.uPIeMenu.RemoveMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)"/> takes more options than this, so from a script
+                you should probably use that method. But unity only allows one parameter when calling
+                methods from an event trigger (like OnClick) in the inspector, so if you want to
+                do that, use this method.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveMenuOptionAndRescaleZ">
+            <summary>
+                <see cref="M:uPIe.uPIeMenu.RemoveMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)"/> takes more options than this, so from a script
+                you should probably use that method. But unity only allows one parameter when calling
+                methods from an event trigger (like OnClick) in the inspector, so if you want to
+                do that, use this method.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveMenuOptionAndRealign(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+                Removes the last menu option (button) from the menu and automatically realigns the menu options
+                according to what is set up in the alignment options.
+                See <see cref="P:uPIe.uPIeMenu.AlignRadius"/>, <see cref="P:uPIe.uPIeMenu.AlignRotation"/>, <see cref="P:uPIe.uPIeMenu.AlignUpDirection"/>, <see cref="P:uPIe.uPIeMenu.AlignForwardDirection"/>
+            </summary>
+            <param name="autoRescaleX">if set to <c>true</c> automatically rescales the x value.</param>
+            <param name="autoRescaleY">if set to <c>true</c> automatically rescales the y value.</param>
+            <param name="autoRescaleZ">if set to <c>true</c> automatically rescales the z value.</param>
+            <returns>The newly added menu option button</returns>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveMenuOption">
+            <summary>
+                Removes the most recently added menu option.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveMenuOption(System.Int32)">
+            <summary>
+                Removes the menu option by a given id.
+            </summary>
+            <param name="id">The identifier.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RemoveMenuOption(UnityEngine.UI.Selectable)">
+            <summary>
+                Removes the menu option by a given selectable.
+            </summary>
+            <param name="slct">The selectable to remove.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.ClearMenuOptions">
+            <summary>
+                Clears all menu options.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.Deselect">
+            <summary>
+                Deselects the currently selected menu option.
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.OpenSubMenu(uPIe.uPIeMenu)">
+            <summary>
+                Opens a sub-uPIe-menu.
+            </summary>
+            <param name="subMenu">The sub menu.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.ReturnToSuperMenu(uPIe.uPIeMenu)">
+            <summary>
+                Closes this sub-uPIe-menu and retuns to the uPIe-menu that
+                is superordinated to this one.
+            </summary>
+            <param name="superMenu">The super menu.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.Realign">
+            <summary>
+                Realigns all menu options.
+                The options set up as alignment options are used.
+                See <see cref="P:uPIe.uPIeMenu.AlignRadius"/>, <see cref="P:uPIe.uPIeMenu.AlignRotation"/>, <see cref="P:uPIe.uPIeMenu.AlignUpDirection"/>, <see cref="P:uPIe.uPIeMenu.AlignForwardDirection"/>
+            </summary>
+        </member>
+        <member name="M:uPIe.uPIeMenu.Realign(System.Single)">
+            <summary>
+                Realigns all menu options by only using a different radius as set up in the alignment options.
+                See <see cref="P:uPIe.uPIeMenu.AlignRadius"/>, <see cref="P:uPIe.uPIeMenu.AlignRotation"/>, <see cref="P:uPIe.uPIeMenu.AlignUpDirection"/>, <see cref="P:uPIe.uPIeMenu.AlignForwardDirection"/>
+            </summary>
+            <param name="radius">The radius to align all options along.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.Realign(System.Single,System.Boolean,UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+                Realigns all menu options by given options
+            </summary>
+            <param name="radius">The radius.</param>
+            <param name="doAlignRotation">if set to <c>true</c> the menu options are also rotated.</param>
+            <param name="upDirection">Local up direction of the menu options.</param>
+            <param name="forwardDirection">Local forward direction of the menu options.</param>
+        </member>
+        <member name="M:uPIe.uPIeMenu.RescaleMenuOptions(System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+                Rescales all menu options.
+            </summary>
+            <param name="xScale">The x scale.</param>
+            <param name="yScale">The y scale.</param>
+            <param name="zScale">The z scale.</param>
+            <param name="multiply">
+                if set to <c>true</c> the scale is multiplied by its current scale. If set to <c>false</c>
+                the scale value is directly set.
+            </param>
+        </member>
+        <member name="T:uPIe.uPIeMenuSerializable">
+            <summary>
+                Monobehaviours can't be serialized. This scripts hols all the data
+                stored in a uPIeMenu, so it can be serialized. (for upgrade helper tool)
+            </summary>
+        </member>
+    </members>
+</doc>

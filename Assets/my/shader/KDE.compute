@@ -1,0 +1,161 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Pilot
+#pragma kernel SL_Modified
+#pragma kernel FinalDensity
+
+#define parthreadNum 1024
+#define gridthreadNum 8
+float4 gridStep;
+float4 gridNum;
+float4 SL;
+float4 parMinPos;
+
+RWStructuredBuffer<float3> SL_ModifiedRW;
+StructuredBuffer<float3> partiPos;
+StructuredBuffer<float3> gridPos;
+RWStructuredBuffer<float> Gradient;
+RWStructuredBuffer<float> parGradient;
+float InterpolateVector(float3 pos);
+
+[numthreads(gridthreadNum, gridthreadNum, gridthreadNum)]
+void Pilot(uint3 id : SV_DispatchThreadID)
+{
+    int idx = id.x + id.y * gridNum.x + id.z * gridNum.x * gridNum.y;
+    float sum = 0;
+    uint parCount = 0;
+    uint parStep = 0;
+    partiPos.GetDimensions(parCount, parStep);
+    //parCount = parCount / 1024 * 1024;
+    for (uint i = 0; i < parCount; i++)
+    {
+        float3 rk = float3((partiPos[i].x - gridPos[idx].x) / SL.x, (partiPos[i].y - gridPos[idx].y) / SL.y, (partiPos[i].z - gridPos[idx].z) / SL.z);
+        rk.x = abs(rk.x);
+        rk.y = abs(rk.y);
+        rk.z = abs(rk.z);
+        float dis = 1 - dot(rk, rk);
+        if (dis > 0)
+        {
+            sum = sum + dis;
+        }
+    }
+    Gradient[idx] = 0.5968310365946 / (SL.x * SL.y * SL.z) * sum;
+
+
+}
+
+
+
+//[numthreads(1, 1, 1)]
+//void aveDen(uint3 id : SV_DispatchThreadID)
+//{
+//    uint parCount = 0;
+//    uint parStep = 0;
+//    partiPos.GetDimensions(parCount, parStep);
+//    //parCount = parCount / 1024 * 1024;
+//    for (uint i = 0; i < parCount; i++)
+//    {
+//        totalDen[0]= InterpolateVector(partiPos[i])+totalDen[0];
+        
+//    }
+
+//}
+
+int NodePosToIndex(int z, int y, int x)
+{
+    return (z) * gridNum.x * gridNum.y + (y) * gridNum.x + x;
+}
+
+float InterpolateVector(float3 pos)
+{
+    float x_scaled = (pos.x - parMinPos.x) / gridStep.x;
+    int xbin = (int) x_scaled;
+    float xratio = x_scaled - xbin;
+
+    float y_scaled = (pos.y - parMinPos.y) / gridStep.y;
+    int ybin = (int) y_scaled;
+    float yratio = y_scaled - ybin;
+
+    float z_scaled = (pos.z - parMinPos.z) / gridStep.z;
+    int zbin = (int) z_scaled;
+    float zratio = z_scaled - zbin;
+
+    float dens1, dens2, dens3, dens4;
+    if (zbin > gridNum.z || ybin > gridNum.y || xbin > gridNum.x || zbin < 0 || xbin < 0 || ybin < 0)
+        return 0;
+    else
+    {
+        dens1 = Gradient[NodePosToIndex(zbin, ybin, xbin)] + (Gradient[NodePosToIndex(zbin, ybin, xbin + 1)] - Gradient[NodePosToIndex(zbin, ybin, xbin)]) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin, ybin + 1, xbin)] + (Gradient[NodePosToIndex(zbin, ybin + 1, xbin + 1)] - Gradient[NodePosToIndex(zbin, ybin + 1, xbin)]) * xratio;
+        dens3 = dens1 + (dens2 - dens1) * yratio;
+
+        dens1 = Gradient[NodePosToIndex(zbin + 1, ybin, xbin)] + (Gradient[NodePosToIndex(zbin + 1, ybin, xbin + 1)] - Gradient[NodePosToIndex(zbin + 1, ybin, xbin)]) * xratio;
+        dens2 = Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)] + (Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)] - Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)]) * xratio;
+        dens4 = dens1 + (dens2 - dens1) * yratio;
+
+        return dens3 + (dens4 - dens3) * zratio;
+    }
+}
+
+[numthreads(1024, 1, 1)]
+void SL_Modified(uint3 id : SV_DispatchThreadID)
+{
+float totalDen=0;
+    int idx = id.x + id.y * gridNum.x + id.z * gridNum.x * gridNum.y;
+    uint parCount = 0;
+    uint parStep = 0;
+    partiPos.GetDimensions(parCount, parStep);
+        for (uint i = 0; i < parCount; i++)
+    {
+        totalDen= InterpolateVector(partiPos[i])+totalDen;
+        
+    }
+    //parCount = parCount / 1024 * 1024;
+    float interp = InterpolateVector(partiPos[idx]);
+    parGradient[idx] = interp;
+    SL_ModifiedRW[idx] =float3(min(SL.x * pow(((double) totalDen / (double) parCount / interp), (1.0 / 3.0)), 5 * gridStep.x),
+                               min(SL.y * pow(((double) totalDen / (double) parCount / interp), (1.0 / 3.0)), 5 * gridStep.y),
+                               min(SL.z * pow(((double) totalDen / (double) parCount / interp), (1.0 / 3.0)), 5 * gridStep.z));
+}
+
+
+
+[numthreads(gridthreadNum, gridthreadNum, gridthreadNum)]
+void FinalDensity(uint3 id : SV_DispatchThreadID)
+{
+    int idx = id.x + id.y * gridNum.x + id.z * gridNum.x * gridNum.y;
+    float sum = 0;
+    uint parCount = 0;
+    uint parStep = 0;
+    partiPos.GetDimensions(parCount, parStep);
+   //parCount = parCount / 1024 * 1024;
+    for (uint i = 0; i < parCount; i++)
+    {
+        float SLx = SL_ModifiedRW[i].x ;
+        float SLy = SL_ModifiedRW[i].y ;
+        float SLz = SL_ModifiedRW[i].z ;
+        float3 rk = float3((partiPos[i].x - gridPos[idx].x) / SLx, (partiPos[i].y - gridPos[idx].y) / SLy, (partiPos[i].z - gridPos[idx].z) / SLz);
+        rk.x = abs(rk.x);
+        rk.y = abs(rk.y);
+        rk.z = abs(rk.z); 
+        float dis = 1 - dot(rk, rk);
+        if (dis > 0)
+        {
+            sum = sum + dis / (SLx * SLy * SLz);
+        }
+        
+
+        //float3 rk = float3((partiPos[i].x - gridPos[idx].x) / SL_ModifiedRW[i].x, (partiPos[i].y - gridPos[idx].y) / SL_ModifiedRW[i].y, (partiPos[i].z - gridPos[idx].z) / SL_ModifiedRW[i].z);
+        //rk.x = abs(rk.x);
+        //rk.y = abs(rk.y);
+        //rk.z = abs(rk.z);
+        //float dis = 1 - dot(rk, rk);
+        //if (dis > 0)
+        //{
+        //    sum = sum + dis / (SL_ModifiedRW[i].x * SL_ModifiedRW[i].y * SL_ModifiedRW[i].z);
+        //}
+    }
+
+    Gradient[idx] = 0.5968310365946 * sum;
+}
+
+
