@@ -5,6 +5,7 @@ Temp/
 Logs/
 UserSettings/
 Packages/
+obj
 *,sln
 *.csproj
 *.sln
