@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RenderDataRunTime : MonoBehaviour
@@ -9,7 +6,6 @@ public class RenderDataRunTime : MonoBehaviour
     public Material selected_mat;
     public Material target_mat;
     public GameObject map;
-    public GameObject origin;
     public float mapRealSize=0.5f; //real size in VR of the map in the hand (0.1m is the 0.1m in VR world)
     public float ratio;
     [SerializeField]
@@ -25,7 +21,6 @@ public class RenderDataRunTime : MonoBehaviour
         // Draw(origin, 1f);
     }
 
-    [System.Obsolete]
     public void GenerateMesh(bool fromStarck=true)
     {
         DestroyImmediate(unselected_mesh, true);

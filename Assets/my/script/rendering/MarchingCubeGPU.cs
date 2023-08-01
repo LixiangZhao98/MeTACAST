@@ -1,6 +1,4 @@
 ﻿using ScalarField;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -112,16 +110,10 @@ namespace PavelKouril.MarchingCubesGPU
         {
             appendVertexBuffer.Release();
             argBuffer.Release();
-            //m=null;
      
         }
 
 
-
-        public void GenerateMCMesh(int numOFTri)
-        {
-
-        }
         public void SetMCGPUThreshold(float f)
         {
             MCGPUThreshold = f;

@@ -95,14 +95,7 @@ namespace ScalarField
 
         public float AVE_NODE_DENSITY { get { return AveNodeDensity; } }
 
-        public  Vector3 BoxIndexToNodeVector(int index)  
-        {
-            int z = index / (xNum * yNum);
-            int left = index - z * xNum * yNum;
-            int y = left / xNum;
-            int x = left - y * xNum;
-            return new Vector3(x, y, z);
-        }
+
         public  int VectorToBoxIndex(Vector3 v, ParticleGroup pG)  //return the box index by inputting a random pos  //can judge the outside pointing,
         {
             int a = (int)((v.x - pG.XMIN) / XSTEP) + (int)((v.y - pG.YMIN) / YSTEP) * XNUM + (int)((v.z - pG.ZMIN) / ZSTEP) * XNUM * YNUM;
@@ -165,12 +158,7 @@ namespace ScalarField
             return (float)value;
         }
 
-        public void NodeDensityPlusDis(int i, double dis)
-        {
-            fieldNode[i].NodeDensityPlusDis(dis);
-        }
        
-
         public int NodePosToIndex(int z, int y, int x)
         {
             return (z) * xNum * yNum + (y) * xNum + x;
@@ -185,10 +173,6 @@ namespace ScalarField
             for (int i = 0; i < xNum*yNum*zNum; i++)
                 LUT_.Add(new LUTUnit());
 
-        }
-        public void BoxDensityPlus(int i)
-        {
-            boxDensity[i] = boxDensity[i] + 1;
         }
 
         public void AddToLUT(int index, int targetint)
@@ -214,30 +198,18 @@ namespace ScalarField
         {
             return fieldNode[i].GetNodeDensity();
         }
-        public double GetEnclosedParticleDis(int i)
-        {
-            return fieldNode[i].GetEnclosedParticleDis();
-        }
+ 
         public int GetNodeNum()
         {
             return fieldNode.Count;
         }
-        public int GetLUTUnitNum(int index)
-        {
-            return LUT_[index].GetLTUnitNum();
-        }
+
         public List<int> GetLUTUnit(int index)
         {
             return LUT_[index].GetLTUnit();
         }
-        public int GetBoxNum()
-        {
-            return boxDensity.Length;
-        }
-        public int GetBoxDensity(int i)
-        {
-            return boxDensity[i];
-        }
+
+
         #endregion
 
         #region Set
@@ -252,10 +224,6 @@ namespace ScalarField
         public void SetAveNodeDensity(float f)
         {
             AveNodeDensity = f;
-        }
-        public void SetEnclosedDis(int i, double dis)
-        {
-            fieldNode[i].SetEnclosedParticleDis(dis);
         }
 
         #endregion
@@ -273,10 +241,7 @@ namespace ScalarField
         {
             LUTUnit_.Add(targetint);
         }
-        public int GetLTUnitNum()
-        {
-            return LUTUnit_.Count;
-        }
+
         public List<int> GetLTUnit()
         {
             return LUTUnit_;

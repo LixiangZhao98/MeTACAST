@@ -1,6 +1,4 @@
 ﻿
-
-using ScalarField;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -78,18 +76,6 @@ namespace ParticleProperty
         {
             return this.particleGroup[i].GetPosition();
         }
-        public Color GetParticleColor(int i)
-        {
-            return this.particleGroup[i].GetColor();
-        }
-        public float GetParticleSize(int i)
-        {
-            return this.particleGroup[i].GetSize();
-        }
-        public Vector3 GetParticleGradient(int i)
-        {
-            return this.particleGroup[i].GetGradient();
-        }
         #endregion
         #region Set Property /Add
 
@@ -103,12 +89,6 @@ namespace ParticleProperty
         }
 
        
-        public void ChangeParticleColor(int i, Color c)
-        {
-
-            particleGroup[i].ChangeColor(c);
-
-        }
         public Vector3 GetMySmoothLength(int i)
         {
             return particleGroup[i].GetMySmoothLength();
@@ -129,10 +109,7 @@ namespace ParticleProperty
         {
             return particleGroup[i].GetTarget();
         }
-        public List<Particle> GetGroup()
-        {
-            return particleGroup;
-        }
+        
         public Vector3 GetSmoothLength()
         {
             return smoothLength;
@@ -149,10 +126,7 @@ namespace ParticleProperty
         {
             particleGroup[i].SetParticleDensity(density);
         }
-        public void SetParticleColor(int i, Color c)
-        {
-            particleGroup[i].SetParticleColor(c);
-        }
+       
         public void SetFlag(int i,bool flag)
         {
             particleGroup[i].SetFlag(flag);
@@ -166,96 +140,17 @@ namespace ParticleProperty
             smoothLength = v;
         }
 
-        public void SetParticleGradient(int i, Vector3 v)
-        {
-            particleGroup[i].SetGradient(v);
-        }
-        public void ClearTarget()
-        {
-            for(int i=0;i<GetParticlenum();i++)
-            {
-                particleGroup[i].SetTarget(false);
-            }
-          
-        }
-        public void RemoveRange(int i, int r)
-        {
-            particleGroup.RemoveRange(i, r);
-        }
         #endregion
         #region load and save
-        public void LoadDatasetsByTxt(string[] dataname)
-        {
-            this.name = dataname[1]+"_"+ dataname[2];
-            int i = 0;
-            particleGroup = new List<Particle>();
-            for (int j = 0; j < dataname.Length; j++)
-            {
-                string fileAddress = (Application.dataPath + "/data/" + dataname[j]);
-                FileInfo fInfo0 = new FileInfo(fileAddress);
-                string s = "";
-                StreamReader r;
-
-                if (fInfo0.Exists)
-                {
-                    r = new StreamReader(fileAddress);
-                }
-                else
-                {
-                    Debug.Log("NO THIS FILE!");
-                    return;
-                }
-
-                while ((s = r.ReadLine()) != null)
-                {
-                    string[] words = s.Split(" "[0]);
-                    Vector3 xyz = new Vector3(float.Parse(words[0]), float.Parse(words[1]), float.Parse(words[2]));
-                    if (j == 0)
-                        xyz = 2 * xyz;
-
-                    if (xmin > xyz.x)
-                        xmin = xyz.x;
-                    if (xmax < xyz.x)
-                        xmax = xyz.x;
-                    if (ymin > xyz.y)
-                        ymin = xyz.y;
-                    if (ymax < xyz.y)
-                        ymax = xyz.y;
-                    if (zmin > xyz.z)
-                        zmin = xyz.z;
-                    if (zmax < xyz.z)
-                        zmax = xyz.z;
-
-                    Color colorRGB;
-                    float size;
-                    if (i < 306578)
-                    {
-                        size = 0.03f;
-                        colorRGB = MyColor(30f, 144f, 255f, 255f);
-                    }
-                    else
-                    {
-                        size = 0.04f;
-                        colorRGB = MyColor(30f, 144f, 255f, 255f);
-                    }
-
-                    Particle p = new Particle(xyz, colorRGB, size);
-                    this.AddParticle(p);
-                    i++;
-                }
-            }
-            Debug.Log("Load success.");
-        }
+       
         public void LoadDatasetByByte(string path, string dataname)
         {
            this. name=dataname;
             Vector3[] vs = DataPosPreProcessing(LoadDataBybyte.StartLoad(path));
             particleGroup = new List<Particle>();
-           Color colorRGB = MyColor(30f, 144f, 255f, 81f);
-            float size = 0.04f;
             for (int i=0;i<vs.Length;i++)
             {
-                Particle p = new Particle(vs[i], colorRGB, size);
+                Particle p = new Particle(vs[i]);
                 this.AddParticle(p);
             }
          
@@ -266,11 +161,9 @@ namespace ParticleProperty
             if(!forSimulation)
             v = DataPosPreProcessing(v);
             particleGroup = new List<Particle>();
-            Color colorRGB = MyColor(30f, 144f, 255f, 81f);
-            float size = 0.04f;
             for (int i = 0; i < v.Length; i++)
             {
-                Particle p = new Particle(v[i], colorRGB, size);
+                Particle p = new Particle(v[i]);
                 this.AddParticle(p);
             }
         }
@@ -279,11 +172,9 @@ namespace ParticleProperty
             this.name = dataname;
             Vector3[] vs = DataPosPreProcessing(csvController.GetInstance().StartLoad(path));
             particleGroup = new List<Particle>();
-            Color colorRGB = MyColor(30f, 144f, 255f, 81f);
-            float size = 0.04f;
             for (int i = 0; i < vs.Length; i++)
             {
-                Particle p = new Particle(vs[i], colorRGB, size);
+                Particle p = new Particle(vs[i]);
                 this.AddParticle(p);
             }
         }
@@ -370,17 +261,7 @@ namespace ParticleProperty
             return vsRevised;
         }
 
-        public void StoreFlags(string name)
-        {
-            List<int> flagtrue = DataMemory.GetpStack().ToList();
-
-            if (flagtrue.Count == 0)
-                Debug.Log("No marked particles");
-            else
-            {
-                SaveData.FlagsToFile(name, flagtrue.ToArray());
-            }
-        }
+      
         private Color MyColor(float r, float g, float b, float a)
         {
             Color c = new Color(r / 255f, g / 255f, b / 255f, a / 255);
@@ -396,10 +277,6 @@ namespace ParticleProperty
         [SerializeField]
         private Vector3 particlePosition;
         [SerializeField]
-        private Color particleColor;
-        [SerializeField]
-        private float particleSize;
-        [SerializeField]
         private double particleDensity;
         [SerializeField]
         private Vector3 my_SmoothLength;
@@ -412,11 +289,9 @@ namespace ParticleProperty
         [SerializeField]
         private Vector3 flowEnd;
 
-        public Particle(Vector3 v, Color c, float f)
+        public Particle(Vector3 v)
         {
             this.particlePosition = v;
-            this.particleColor = c;
-            this.particleSize = f;
             particleDensity = 0;
             isSelected = false;
             gradiant = Vector3.zero;
@@ -432,14 +307,7 @@ namespace ParticleProperty
         {
             return particlePosition;
         }
-        public Color GetColor()
-        {
-            return particleColor;
-        }
-        public float GetSize()
-        {
-            return particleSize;
-        }
+
         public double GetParticleDensity()
         {
             return particleDensity;
@@ -448,10 +316,7 @@ namespace ParticleProperty
         {
             return my_SmoothLength;
         }
-        public Color GetParticleColor()
-        {
-            return particleColor;
-        }
+ 
         public bool GetFlag()
         {
             return isSelected;
@@ -466,10 +331,7 @@ namespace ParticleProperty
         }
         #endregion
         #region Set
-        public void ChangeColor(Color c)
-        {
-            particleColor = c;
-        }
+
         public void SetFlowEnd(Vector3 v)
         {
             flowEnd = v;
@@ -482,10 +344,7 @@ namespace ParticleProperty
         {
             particleDensity = density;
         }
-        public void SetParticleColor(Color c)
-        {
-           particleColor=c;
-        }
+
         public void SetFlag(bool flag)
         {
             isSelected = flag;

@@ -1,20 +1,11 @@
 using ParticleProperty;
-using PavelKouril.MarchingCubesGPU;
-using ScalarField;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class Baseline : MonoBehaviour
 {
-
-
-
     public static List<int> SelectParticles(Vector3 input, float R, ParticleGroup pG)
     {
-
         List<int> selectedparticle = new List<int>();
         for (int i=0;i<pG.GetParticlenum();i++)
         {
@@ -23,7 +14,6 @@ public class Baseline : MonoBehaviour
                 pG.SetFlag(i,true);
             }
         }
-      //  DataMemory.AddParticles(selectedparticle); 
         return selectedparticle;
     }
 

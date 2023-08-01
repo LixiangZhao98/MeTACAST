@@ -1,6 +1,5 @@
 
 using UnityEngine;
-using System.Collections;
 using HTC.UnityPlugin.Vive;
 
 public class MoveByController : MonoBehaviour {

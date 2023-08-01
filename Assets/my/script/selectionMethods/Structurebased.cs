@@ -1,7 +1,6 @@
 using ParticleProperty;
 using PavelKouril.MarchingCubesGPU;
 using ScalarField;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class Structurebased : MonoBehaviour
 {
    static public List<Vector3> flowToMax = new List<Vector3>();
     static public void Init()
-    {
+    { 
         flowToMax = new List<Vector3>();
     }
     static public bool Contains(List<List<int>> targetBoxes,int index,List<int> seed)
@@ -35,12 +34,6 @@ public class Structurebased : MonoBehaviour
             List<Vector3> v = Utility.Emit(processedUserDraw[i], Vector3.zero, dF, pG);
             flowToMax.Add(v[v.Count - 1]);
         }
-
-        //double sum = 0;
-        //for(int i=0;i<flowToMax.Count;i++)
-        //{
-        //    sum += Utility.InterpolateVector(flowToMax[i], pG, dF);
-        //}
         den_thre = (float)GetThreshodbyParticles(processedUserDraw, pG)*0.6f ;
      
         
@@ -113,7 +106,7 @@ public class Structurebased : MonoBehaviour
 
     public static void SelectParticles(DensityField dF,  float thre, ParticleGroup pG)
     {
-        List<int> targetnodeIndex = GetboxIndexesOfComponentsByMaxNumSeed(thre, dF, pG);   //只保留包裹maxLine的体
+        List<int> targetnodeIndex = GetboxIndexesOfComponentsByMaxNumSeed(thre, dF, pG);   
 
         List<int> selectedparticle = new List<int>();
         for (int i = 0; i < targetnodeIndex.Count; i++)

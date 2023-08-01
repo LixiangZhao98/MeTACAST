@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -92,12 +91,12 @@ public class csvController
     static csvController csv;
     public List<string[]> arrayData;
 
-    private csvController()   //单例，构造方法为私有
+    private csvController()  
     {
         arrayData = new List<string[]>();
     }
 
-    public static csvController GetInstance()   //单例方法获取对象
+    public static csvController GetInstance()   
     {
         if (csv == null)
         {
@@ -112,7 +111,7 @@ public class csvController
         StreamReader sr = null;
         try
         {
-            string file_url =fileName;    //根据路径打开文件
+            string file_url =fileName;   
             sr = File.OpenText(file_url);
             Debug.Log("File Find in " + file_url);
         }
@@ -124,10 +123,10 @@ public class csvController
 
         string line;
         int count = 0;
-        while ((line = sr.ReadLine()) != null)   //按行读取
+        while ((line = sr.ReadLine()) != null)  
         {
             count++;
-            arrayData.Add(line.Split(','));   //每行逗号分隔,split()方法返回 string[]
+            arrayData.Add(line.Split(','));  
         }
         sr.Close();
         sr.Dispose();
@@ -149,10 +148,10 @@ public class csvController
 
    public Vector3[] StartLoad(string filename)
     {
-        //csvController加载csv文件，单例模式，这个类只有一个对象，这个对象只能加载一个csv文件
+     
        int count= csvController.GetInstance().loadFile(filename);
         Vector3[] vs = new Vector3[count];
-        //根据索引读取csvController中的list（csv文件的内容）数据
+    
         for (int i=1;i<count;i++)
         {
             vs[i - 1] = new Vector3(csvController.GetInstance().getFloat(i,1), csvController.GetInstance().getFloat(i, 2), csvController.GetInstance().getFloat(i, 3));
@@ -168,7 +167,6 @@ public class csvController
         {
             File.Create(path).Dispose();
         }
-        //UTF-8方式保存
         using (StreamWriter stream = new StreamWriter(path, false, Encoding.UTF8))
         {
             for (int i = 0; i < strs.Length; i++)

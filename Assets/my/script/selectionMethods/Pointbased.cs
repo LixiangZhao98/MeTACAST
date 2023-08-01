@@ -1,7 +1,6 @@
 using ParticleProperty;
 using PavelKouril.MarchingCubesGPU;
 using ScalarField;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class Pointbased
     {
        
         if (dF.VectorToBoxIndex(input, pG) != -1)
-        {
+        { 
            
                 List<int> targetIndex = Utility.FloodFilling(GetRevisedNodeIndex_Gradient(pG, dF, input), Utility.InterpolateVector(input, pG, dF), dF, pG);
                 McGPU.SetMCFlagTexture(targetIndex);
@@ -23,7 +22,7 @@ public class Pointbased
         else
             McGPU.SetMCGPUThreshold(0);
     }
-    public static void SelectParticles(Vector3 input, DensityField dF, ParticleGroup pG, MarchingCubeGPU McGPU, UserstudyController UC)
+    public static void SelectParticles(Vector3 input, DensityField dF, ParticleGroup pG, MarchingCubeGPU McGPU)
     {
        
         if (dF.VectorToBoxIndex(input, pG) != -1)

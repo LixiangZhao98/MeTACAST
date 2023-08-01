@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ScalarField;
 using ParticleProperty;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
@@ -15,7 +13,7 @@ public class GPUKDECsHelper
     static ComputeBuffer gridPos;
     static ComputeBuffer nodeDen;
     static ComputeBuffer parDen;
-    //static ComputeBuffer totalDen;
+
 
     static public void StartGpuKDE(ParticleGroup pG, DensityField dF, ComputeShader KDE_cs_)
     {
@@ -63,7 +61,7 @@ public class GPUKDECsHelper
         KDE_Cs.SetBuffer(kernel_Pilot, "gridPos", gridPos);
         KDE_Cs.SetBuffer(kernel_Pilot, "Gradient", nodeDen);
         KDE_Cs.Dispatch(kernel_Pilot, dF.XNUM / 8, dF.YNUM / 8, dF.ZNUM / 8);  //pilot density
-                                                                               //-------------------------------------------------------------------------------------------------kernel 1
+        //-------------------------------------------------------------------------------------------------kernel 1
 
         SL_modified = new ComputeBuffer(pG.GetParticlenum(), 3 * sizeof(float));
         KDE_Cs.SetBuffer(kernel_SL_Modified, "partiPos", parPos);

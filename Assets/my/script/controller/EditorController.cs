@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EditorController : MonoBehaviour
@@ -9,7 +7,6 @@ public class EditorController : MonoBehaviour
     public string StoreFlagsName;
     public bool LoadFlag;
     public int gridNum = 64;
-    public GameObject PointCloudMeshinHand;
  
     
     // Start is called before the first frame update

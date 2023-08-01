@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using HTC.UnityPlugin.Vive;
@@ -15,9 +14,8 @@ public class ControllerDraw : MonoBehaviour
     private List<float> drawTime; //start from the draw beginning
     private float startTime;
     public float PointDistance = 0.005f;
-    public Camera cam;
     public float lineWidth;
-    public RenderDataRunTime Rd;
+
  
     void Start()
     {
@@ -82,10 +80,6 @@ public class ControllerDraw : MonoBehaviour
         {
             
             m_init = false;
-            this.gameObject.GetComponent<StoreTheDraw>().SetPosBuffer(pointsList.ToArray());
-            this.gameObject.GetComponent<StoreTheDraw>().SetTimeBuffer(drawTime.ToArray());
-            this.gameObject.GetComponent<StoreTheDraw>().SetCamPosBuffer(PointCloudMeshinHand.transform.InverseTransformPoint(cam.transform.position));
-
         }
     }
 
@@ -93,11 +87,7 @@ public class ControllerDraw : MonoBehaviour
 
     public List<Vector3> GetPointList()
     {
-        //foreach(var p in pointsList)
-        //{
-        //    Debug.Log(p.x+" "+p.y+" "+p.z);
-        //}
-       
+
         return pointsList;
     }
 

@@ -1,7 +1,6 @@
 using ParticleProperty;
 using PavelKouril.MarchingCubesGPU;
 using ScalarField;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,7 +67,7 @@ public class Linebased
                     num++;
                     averageDen += pG.GetParticleDensity(i);
 
-                    List<int> includedNodes =Utility. GetNodesInArea(pG, dF, 0.5f, i); //²»ÉèÖÃÎª0µÄnode
+                    List<int> includedNodes =Utility. GetNodesInArea(pG, dF, 0.5f, i); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½node
                     foreach (var inc in includedNodes)
                     {
                         if (dF2.GetNodeDensity(inc) == 0)
@@ -116,7 +115,7 @@ public class Linebased
     }
     public static void SelectParticles(DensityField dF1, DensityField dF2,  float thre, ParticleGroup pG)
     {
-        List<int> targetnodeIndex =GetboxIndexesOfComponentsEnclosingMaxLine( thre, dF2,pG);   //Ö»±£Áô°ü¹ümaxLineµÄÌå
+        List<int> targetnodeIndex =GetboxIndexesOfComponentsEnclosingMaxLine( thre, dF2,pG);   //Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½maxLineï¿½ï¿½ï¿½ï¿½
 
         List<int> selectedparticle = new List<int>();
         for (int i=0;i<targetnodeIndex.Count;i++)
