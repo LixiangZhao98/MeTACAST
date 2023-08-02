@@ -44,7 +44,21 @@ Shader "Custom/MCmesh"{
 
 	SubShader{
 		
-         Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+            Tags { "RenderType"="Opaque" "IgnoreProjector"="True" "PreviewType"="Plane" "PerformanceChecks"="False" }
+
+            BlendOp [_BlendOp]
+            Blend [_SrcBlend] [_DstBlend]
+            ZWrite [_ZWrite]
+            Cull [_Cull]
+            ColorMask RGB
+
+            GrabPass
+            {
+                Tags { "LightMode" = "Always" }
+                "_GrabTexture"
+            }
+
+
         Pass
         {
             Tags {"LightMode" = "ForwardBase"}

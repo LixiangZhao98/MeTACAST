@@ -12,7 +12,7 @@ Material:
   m_ShaderKeywords: EFFECT_BUMP _ALPHAPREMULTIPLY_ON _EMISSION _FADING_ON _REQUIRE_UV2
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
@@ -92,8 +92,8 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.514151, g: 0.8561266, b: 1, a: 1}
+    - _Color: {r: 0.11764703, g: 0.5647059, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 1, b: 0.8806343, a: 1}
+    - _EmissionColor: {r: 0.11764706, g: 0.5647059, b: 0.8806343, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

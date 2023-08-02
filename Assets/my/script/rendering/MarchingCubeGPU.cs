@@ -82,6 +82,7 @@ namespace PavelKouril.MarchingCubesGPU
                 meshMaterial.SetMatrix("_LocalToWorld", map.transform.localToWorldMatrix);
                 meshMaterial.SetMatrix("_WorldToLocal", map.transform.worldToLocalMatrix);
                 Graphics.DrawProcedural(meshMaterial, bounds, MeshTopology.Triangles, args[0] * 3, 1);
+                //Graphics.DrawProceduralIndirectNow()
                 sw.Stop();
                 UnityEngine.Debug.Log("MC finish in " + sw.ElapsedMilliseconds);
             }
