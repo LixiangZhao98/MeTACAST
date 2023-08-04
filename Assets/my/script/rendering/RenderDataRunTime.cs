@@ -74,7 +74,6 @@ public class RenderDataRunTime : MonoBehaviour
             Graphics.DrawMesh(unselected_mesh1, m, unselected_mat, 1);
             Graphics.DrawMesh(selected_mesh1, m, selected_mat, 1);
              Graphics.DrawMesh(target_mesh1, m, target_mat, 1);
-            // Graphics .DrawProcedural()
             g.transform.localScale = new Vector3(s, s, s);
         }
 
@@ -85,7 +84,6 @@ public class RenderDataRunTime : MonoBehaviour
             Graphics.DrawMesh(unselected_mesh0, m, unselected_mat, 1);
             Graphics.DrawMesh(selected_mesh0, m, selected_mat, 1);
              Graphics.DrawMesh(target_mesh0, m, target_mat, 1);
-            // Graphics .DrawProcedural()
             g.transform.localScale = new Vector3(s, s, s);
         }
     }
