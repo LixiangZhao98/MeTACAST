@@ -7,11 +7,17 @@ UserSettings/
 Packages/
 obj/
 Assets/HTC.UnityPlugin
+Assets/HTC.UnityPlugin.meta
 Assets/SteamVR
+Assets/SteamVR.meta
 Assets/SteamVR_Input
+Assets/SteamVR_Input.meta
 Assets/SteamVR_Resources
+Assets/SteamVR_Resources.meta
 Assets/StreamingAssets
+Assets/StreamingAssets.meta
 Assets/XR
+Assets/XR.meta
 *,sln
 *.csproj
 *.sln
