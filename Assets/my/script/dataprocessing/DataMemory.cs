@@ -22,7 +22,6 @@ public class DataMemory : MonoBehaviour
     public static void LoadFlagsToStack(string name)
     {
         int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/my/data/flags/" + allParticle.name+"_"+ name);
-        //pStack.Push(flags.ToList());
         for (int i = 0; i < flags.Length; i++)
         {
            
@@ -145,9 +144,8 @@ public class DataMemory : MonoBehaviour
         allParticle.ZMIN -= step;
         densityField.InitializeDensityFieldByGapDis(allParticle.name, allParticle.XMIN, allParticle.XMAX, gridNum, allParticle.YMIN, allParticle.YMAX, gridNum, allParticle.ZMIN, allParticle.ZMAX, gridNum);
         densityField2.InitializeDensityFieldByGapDis(allParticle.name, allParticle.XMIN, allParticle.XMAX, gridNum, allParticle.YMIN, allParticle.YMAX, gridNum, allParticle.ZMIN, allParticle.ZMAX, gridNum);
-        Debug.Log("Create density field success" + " with " + densityField.GetNodeNum() + " nodes.");
+        Debug.Log("Create density field success");
 
-        Debug.Log(densityField.XNUM + " " + densityField.YNUM + " " + densityField.ZNUM);
     }
     public static void ClearDensityMemory()
     {

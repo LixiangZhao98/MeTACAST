@@ -60,13 +60,10 @@ namespace PavelKouril.MarchingCubesGPU
             MarchingCubesCS.SetFloat("_isoLevel", MCGPUThreshold);
 
             appendVertexBuffer.SetCounterValue(0);
-            Stopwatch sw = new Stopwatch();
+
             if (MCGPUThreshold!=0)
             {
-                
-                sw.Start();
                 MarchingCubesCS.Dispatch(kernelMC, ResolutionX / 8, ResolutionY / 8, ResolutionZ / 8);
-              
             }
 
             args = new int[] { 0, 1, 0, 0 };
@@ -82,9 +79,7 @@ namespace PavelKouril.MarchingCubesGPU
                 meshMaterial.SetMatrix("_LocalToWorld", map.transform.localToWorldMatrix);
                 meshMaterial.SetMatrix("_WorldToLocal", map.transform.worldToLocalMatrix);
                 Graphics.DrawProcedural(meshMaterial, bounds, MeshTopology.Triangles, args[0] * 3, 1);
-                //Graphics.DrawProceduralIndirectNow()
-                sw.Stop();
-                UnityEngine.Debug.Log("MC finish in " + sw.ElapsedMilliseconds);
+
             }
    
 

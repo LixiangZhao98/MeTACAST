@@ -6,6 +6,12 @@ Logs/
 UserSettings/
 Packages/
 obj/
+Assets/HTC.UnityPlugin
+Assets/SteamVR
+Assets/SteamVR_Input
+Assets/SteamVR_Resources
+Assets/StreamingAssets
+Assets/XR
 *,sln
 *.csproj
 *.sln

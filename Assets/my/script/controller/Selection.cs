@@ -214,13 +214,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
         {
             doingNothing = false;
-
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             Pointbased.SelectParticles(map.InverseTransformPoint(marker.position), DataMemory.densityField, DataMemory.allParticle, McGPU);
-            sw.Stop();
-            UnityEngine.Debug.Log("MeTAPoint finish in " + sw.ElapsedMilliseconds);
-
             RD.GenerateMesh();
 
 
@@ -252,18 +246,14 @@ public class Selection : MonoBehaviour
         {
 
             doingNothing = false;
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
             Linebased.SelectMC(/*GameObject.Find("maxO"), */controllerDraw.GetPointList(), R, DataMemory.densityField, DataMemory.densityField2, ref densityThreInitial, DataMemory.allParticle, McGPU);
-            McGPU.SetMCFlagTexture(Linebased.GetboxIndexesOfComponentsEnclosingMaxLine(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField2, DataMemory.allParticle)); //ֻ��������maxLine����  ���԰�һЩ����������ֻ������maxline�ϵ�������
+            McGPU.SetMCFlagTexture(Linebased.GetboxIndexesOfComponentsEnclosingMaxLine(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField2, DataMemory.allParticle)); 
             McGPU.SetMCGPUThreshold(densityThreInitial * Mathf.Pow(2, threshold_linear));
 
 
 
 
             Linebased.SelectParticles(DataMemory.densityField, DataMemory.densityField2, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
-            sw.Stop();
-            UnityEngine.Debug.Log("MeTABrush finish in " + sw.ElapsedMilliseconds);
 
 
             RD.GenerateMesh();
@@ -353,12 +343,8 @@ public class Selection : MonoBehaviour
             McGPU.SetMCFlagTexture(Structurebased.GetboxIndexesOfComponentsByMaxNumSeed(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField, DataMemory.allParticle)); //ֻ��������maxLine����  ���԰�һЩ����������ֻ������maxline�ϵ�������
             McGPU.SetMCGPUThreshold(densityThreInitial * Mathf.Pow(2, threshold_linear));
 
-        
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+
             Structurebased.SelectParticles(DataMemory.densityField, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
-            sw.Stop();
-            UnityEngine.Debug.Log("MeTAPaint finish in " + sw.ElapsedMilliseconds);
 
         
             RD.GenerateMesh();
@@ -439,9 +425,6 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
         {
             doingNothing = false;
-            //for (int i = 0; i < brushNum; i++)
-            //    DataMemory.Return();
-            //DataMemory.ReleaseOperatorStack();
             DataMemory.AddParticles(brushInOnePress);
         }
         float moveyLeft = ViveInput.GetAxis(HandRole.LeftHand, ControllerAxis.JoystickY) * Time.deltaTime * radiusmovespeed; //adjust the radius
