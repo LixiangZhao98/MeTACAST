@@ -21,9 +21,10 @@ This is a repository for demo and source code of the paper "MeTACAST: a family o
 ## Run the code
 1. create a new Unity 3D project
 2. install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin") and [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility") in the project
-3. download codes through zip from the repository
-4. copy the `Assets/my` folder in this repository to the `Assets` folder of the unity project
-5. run `Assets/my/Scenes/demo.unity` in the Unity Editor after connecting the VR devices
+3. set the `Stereo Rendering Mode` to `Multi Pass` (Edit/project setting/XR Plug-in Management/OpenVR/Stereo Rendering Mode/Multi Pass)
+4. download codes through zip from the repository
+5. copy the `Assets/my` folder in this repository to the `Assets` folder of the unity project
+6. run `Assets/my/Scenes/demo.unity` in the Unity Editor after connecting the VR devices
 
 ## Control
 * hold `trigger` on the right controller to input
