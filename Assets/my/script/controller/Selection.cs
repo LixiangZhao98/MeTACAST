@@ -25,9 +25,6 @@ public class Selection : MonoBehaviour
     float R = 0f;
     public float radiusmovespeed = 1f;
 
-
-
-    bool doingNothing = true;
     float eraseNum = 0f;
     public void Init(SelectionTech s)
     {
@@ -80,7 +77,6 @@ public class Selection : MonoBehaviour
             Redo();
 
         }
-        doingNothing = true;
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)) //release the second stack
         {
             DataMemory.ReleaseOperatorStack();
@@ -108,7 +104,6 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Grip))//erase
         {
 
-            doingNothing = false;
             marker.gameObject.transform.localScale = map.transform.localScale * R;
             eraseNum = 0;
 
@@ -119,7 +114,6 @@ public class Selection : MonoBehaviour
 
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Grip))
         {
-            doingNothing = false;
 
             if (Baseline.Erase(map.InverseTransformPoint(marker.position), R, DataMemory.allParticle))
             {
@@ -133,7 +127,6 @@ public class Selection : MonoBehaviour
 
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Grip))
         {
-            doingNothing = false;
    
             List<int> last = DataMemory.GetpStack();
             for (int i = 0; i < eraseNum; i++)
@@ -148,7 +141,6 @@ public class Selection : MonoBehaviour
         float moveyLeft = ViveInput.GetAxis(HandRole.LeftHand, ControllerAxis.JoystickY) * Time.deltaTime * radiusmovespeed; //adjust the radius
         if (moveyLeft != 0)
         {
-            doingNothing = false;
             R += moveyLeft;
             if (R > 20f * DataMemory.densityField.XSTEP)
                 R = 20f * DataMemory.densityField.XSTEP;
@@ -159,22 +151,14 @@ public class Selection : MonoBehaviour
 
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.JoystickTouch))   //adjust thre
         {
-            doingNothing = false;
 
             CancelInvoke();
         }
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
-            doingNothing = false;
 
             Invoke("MCDisappear", 1f);
         }
-        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.JoystickTouch))
-        {
-            doingNothing = false;
-
-        }
-
     }
 
     public void Undo()
@@ -200,25 +184,15 @@ public class Selection : MonoBehaviour
     #region MeTAPoint
     void pointbasedselection()
     {
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
-        {
-
-            doingNothing = false;
-        }
+       
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
         {
-            doingNothing = false;
-
             Pointbased.SelectMC(map.InverseTransformPoint(marker.position), DataMemory.densityField, DataMemory.allParticle, McGPU);
         }
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
         {
-            doingNothing = false;
             Pointbased.SelectParticles(map.InverseTransformPoint(marker.position), DataMemory.densityField, DataMemory.allParticle, McGPU);
             RD.GenerateMesh();
-
-
-
             McGPU.SetMCGPUThreshold(0f);
         }
     }
@@ -231,22 +205,15 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
         {
 
-            doingNothing = false;
             Linebased.Init();
             threshold_linear = 0f;
         }
 
-        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
-        {
-            doingNothing = false;
-
-        }
 
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
         {
 
-            doingNothing = false;
-            Linebased.SelectMC(/*GameObject.Find("maxO"), */controllerDraw.GetPointList(), R, DataMemory.densityField, DataMemory.densityField2, ref densityThreInitial, DataMemory.allParticle, McGPU);
+            Linebased.SelectMC(controllerDraw.GetPointList(), R, DataMemory.densityField, DataMemory.densityField2, ref densityThreInitial, DataMemory.allParticle, McGPU);
             McGPU.SetMCFlagTexture(Linebased.GetboxIndexesOfComponentsEnclosingMaxLine(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField2, DataMemory.allParticle)); 
             McGPU.SetMCGPUThreshold(densityThreInitial * Mathf.Pow(2, threshold_linear));
 
@@ -254,10 +221,7 @@ public class Selection : MonoBehaviour
 
 
             Linebased.SelectParticles(DataMemory.densityField, DataMemory.densityField2, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
-
-
             RD.GenerateMesh();
-
             controllerDraw.Initiate();
             Invoke("MCDisappear", 1f);
         }
@@ -269,9 +233,6 @@ public class Selection : MonoBehaviour
         float moveyRight = ViveInput.GetAxis(HandRole.RightHand, ControllerAxis.JoystickY) * Time.deltaTime * thremovespeed;  //adjust thre
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
-            doingNothing = false;
-
-
             DataMemory.Return();
             RD.GenerateMesh();
 
@@ -279,21 +240,18 @@ public class Selection : MonoBehaviour
         }
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
-            doingNothing = false;
             McGPU.SetMCFlagTexture(Linebased.GetboxIndexesOfComponentsEnclosingMaxLine(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField2, DataMemory.allParticle)); //ֻ��������maxLine����  ���԰�һЩ����������ֻ������maxline�ϵ�������
             McGPU.SetMCGPUThreshold(densityThreInitial * Mathf.Pow(2, threshold_linear));
         }
 
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
-            doingNothing = false;
             Linebased.SelectParticles(DataMemory.densityField, DataMemory.densityField2, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
             RD.GenerateMesh();
         }
 
         if (moveyRight != 0)
         {
-            doingNothing = false;
             threshold_linear -= moveyRight;    //��ǰ��������
             if (threshold_linear > 20f)
                 threshold_linear = 20f;
@@ -307,7 +265,6 @@ public class Selection : MonoBehaviour
         float moveyLeft = ViveInput.GetAxis(HandRole.LeftHand, ControllerAxis.JoystickY) * Time.deltaTime * radiusmovespeed;  //adjust the radius
         if (moveyLeft != 0)
         {
-            doingNothing = false;
             R += moveyLeft;
             if (R > 20f * DataMemory.densityField.XSTEP)
                 R = 20f * DataMemory.densityField.XSTEP;
@@ -324,21 +281,14 @@ public class Selection : MonoBehaviour
     {
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
         {
-       
-            doingNothing = false;
+    
             Structurebased.Init();
             threshold_linear = 0f;
         }
-        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
-        {
-            doingNothing = false;
-   
-        }
+
 
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
         {
-            doingNothing = false;
-
             Structurebased.SelectMC(/*GameObject.Find("maxO"),*/ controllerDraw.GetPointList(), DataMemory.densityField, ref densityThreInitial, DataMemory.allParticle, McGPU);
             McGPU.SetMCFlagTexture(Structurebased.GetboxIndexesOfComponentsByMaxNumSeed(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField, DataMemory.allParticle)); //ֻ��������maxLine����  ���԰�һЩ����������ֻ������maxline�ϵ�������
             McGPU.SetMCGPUThreshold(densityThreInitial * Mathf.Pow(2, threshold_linear));
@@ -359,9 +309,6 @@ public class Selection : MonoBehaviour
         float moveyRight = ViveInput.GetAxis(HandRole.RightHand, ControllerAxis.JoystickY) * Time.deltaTime * thremovespeed;  //adjust thre
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
-            doingNothing = false;
-
-
             DataMemory.Return();
             RD.GenerateMesh();
 
@@ -369,21 +316,18 @@ public class Selection : MonoBehaviour
         }
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
-            doingNothing = false;
-            McGPU.SetMCFlagTexture(Structurebased.GetboxIndexesOfComponentsByMaxNumSeed(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField, DataMemory.allParticle)); //ֻ��������maxLine����  ���԰�һЩ����������ֻ������maxline�ϵ�������
+            McGPU.SetMCFlagTexture(Structurebased.GetboxIndexesOfComponentsByMaxNumSeed(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField, DataMemory.allParticle)); 
             McGPU.SetMCGPUThreshold(densityThreInitial * Mathf.Pow(2, threshold_linear));
         }
 
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
-            doingNothing = false;
             Structurebased.SelectParticles(DataMemory.densityField, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
             RD.GenerateMesh();
         }
         if (moveyRight != 0)
         {
-            doingNothing = false;
-            threshold_linear -= moveyRight;    //��ǰ��������
+            threshold_linear -= moveyRight;  
             if (threshold_linear > 20f)
                 threshold_linear = 20f;
             if (threshold_linear < -20f)
@@ -407,30 +351,24 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
         {
 
-            doingNothing = false;
             brushNum = 0;
             brushInOnePress = new List<int>();
 
         }
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
         {
-            doingNothing = false;
-     
             brushInOnePress.AddRange(Baseline.SelectParticles(map.InverseTransformPoint(marker.position), R, DataMemory.allParticle));
-       
             RD.GenerateMesh(false);
             brushNum++;
         }
 
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
         {
-            doingNothing = false;
             DataMemory.AddParticles(brushInOnePress);
         }
         float moveyLeft = ViveInput.GetAxis(HandRole.LeftHand, ControllerAxis.JoystickY) * Time.deltaTime * radiusmovespeed; //adjust the radius
         if (moveyLeft != 0)
         {
-            doingNothing = false;
             R += moveyLeft;
             if (R > 20f * DataMemory.densityField.XSTEP)
                 R = 20f * DataMemory.densityField.XSTEP;

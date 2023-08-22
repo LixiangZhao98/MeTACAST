@@ -90,10 +90,6 @@ public class RunTimeController : MonoBehaviour
             DataMemory.LoadFlagsToStack(LoadFlagName);
         RD.GenerateMesh();
         MCgpu.Init();
-
-
-
-
     }
 
     public void SwitchSelectionTech(SelectionTech s)

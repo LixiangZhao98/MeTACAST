@@ -24,9 +24,8 @@ public class Structurebased : MonoBehaviour
         seed=new List<int>();
         return false;
     }
-    public static void SelectMC(/*GameObject father,*/ List<Vector3> userDraw, DensityField dF, ref float den_thre, ParticleGroup pG, MarchingCubeGPU McGpu)
+    public static void SelectMC(List<Vector3> userDraw, DensityField dF, ref float den_thre, ParticleGroup pG, MarchingCubeGPU McGpu)
     {
-
         List<Vector3> processedUserDraw = UserDrawPreProcessing(userDraw, dF, pG);
         flowToMax = new List<Vector3>();
         for (int i = 0; i < processedUserDraw.Count; i++)

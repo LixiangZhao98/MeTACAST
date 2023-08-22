@@ -197,8 +197,84 @@ public class Utility
         return targetBoxIndex;
     }
 
-  
+ static List<int> targetIndex;static  List<int> selectedparticle;static bool[] isVisited;static Stack<int> nodes ;
+public static List<int> ReviseFloodFilling(int index, double thre, DensityField dF, ParticleGroup pG, bool confirm = false)  //return the index of box which need to implement the marching cube  //confirm means this trail is the final selection result and add the particles into the stack
+    {
+        targetIndex = new List<int>(); int sample = 0;
+        try
+        {
 
+
+            isVisited = new bool[dF.GetNodeNum()];
+            for (int i = 0; i < isVisited.Length; i++)
+            {
+                isVisited[i] = false;
+            }
+            nodes = new Stack<int>();
+            nodes.Push(index);
+            isVisited[index] = true;
+        
+
+            selectedparticle = new List<int>();
+            while (nodes.Count != 0)
+            {
+                sample = nodes.Pop();
+                if (confirm)
+                {
+                    foreach (var i in dF.GetLUTUnit(sample))
+                    {
+                        if (pG.GetParticleDensity(i) > thre)
+                        {
+                           
+                            selectedparticle.Add(i);
+                           
+
+                        }
+                    }
+                }
+
+
+                targetIndex.Add(sample);
+
+                foreach (var i in Neighbour_6(sample, dF, pG))
+                {
+                    if (dF.GetNodeDensity(i) > thre && isVisited[i] == false)
+                    {
+                        
+                           isVisited[i] = true;
+                        //if (i >= 0 && i < dF.GetNodeNum())
+                            nodes.Push(i);
+                        //if (i - 1 >= 0 && i - 1 < dF.GetNodeNum())
+                            nodes.Push(i - 1);
+                        //if (i - dF.XNUM >= 0 && i - dF.XNUM < dF.GetNodeNum())
+                            nodes.Push(i - dF.XNUM);
+                        //if (i - dF.XNUM - 1 >= 0 && i - dF.XNUM - 1 < dF.GetNodeNum())
+                            nodes.Push(i - dF.XNUM - 1);
+                        //if (i - dF.XNUM * dF.YNUM >= 0 && i - dF.XNUM * dF.YNUM < dF.GetNodeNum())
+                            nodes.Push(i - dF.XNUM * dF.YNUM);
+                        //if (i - dF.XNUM * dF.YNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - 1 < dF.GetNodeNum())
+                            nodes.Push(i - dF.XNUM * dF.YNUM - 1);
+                        //if (i - dF.XNUM * dF.YNUM - dF.XNUM >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM < dF.GetNodeNum())
+                            nodes.Push(i - dF.XNUM * dF.YNUM - dF.XNUM);
+                        //if (i - dF.XNUM * dF.YNUM - dF.XNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM - 1 < dF.GetNodeNum())
+                            nodes.Push(i - dF.XNUM * dF.YNUM - dF.XNUM - 1);
+                    }
+                }
+            }
+            if (confirm)
+            {
+                DataMemory.AddParticles(selectedparticle);
+              
+            }
+
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+            Debug.Log(sample);
+        }
+        return targetIndex;
+    }
 
     static public List<Vector3> Emit(Vector3 saddle_pos, Vector3 direction, DensityField dF, ParticleGroup pG)
     {
@@ -334,6 +410,97 @@ public class Utility
             neighbours.Add(neighbour);
         neighbour = index - dF.XNUM * dF.YNUM;
         if (dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+
+        return neighbours;
+    }
+
+    public static List<int> Neighbour_26(int index, DensityField dF, ParticleGroup pG)
+    {
+        List<int> neighbours = new List<int>();
+        int neighbour;
+        neighbour = index + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+
+        neighbour = index + dF.XNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+
+        neighbour = index + dF.XNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+
+        neighbour = index - dF.XNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+
+        neighbour = index + dF.XNUM * dF.YNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM + dF.XNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM + dF.XNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM + dF.XNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM - dF.XNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM - dF.XNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index + dF.XNUM * dF.YNUM - dF.XNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+
+        neighbour = index - dF.XNUM * dF.YNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM + dF.XNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM + dF.XNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM + dF.XNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM - dF.XNUM;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM - dF.XNUM + 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
+            neighbours.Add(neighbour);
+        neighbour = index - dF.XNUM * dF.YNUM - dF.XNUM - 1;
+        if (dF.GetNodedPos(index).x + dF.XSTEP < pG.XMAX && dF.GetNodedPos(index).x - dF.XSTEP > pG.XMIN && dF.GetNodedPos(index).y + dF.YSTEP < pG.YMAX && dF.GetNodedPos(index).y - dF.YSTEP > pG.YMIN && dF.GetNodedPos(index).z + dF.ZSTEP < pG.ZMAX && dF.GetNodedPos(index).z - dF.ZSTEP > pG.ZMIN)
             neighbours.Add(neighbour);
 
         return neighbours;

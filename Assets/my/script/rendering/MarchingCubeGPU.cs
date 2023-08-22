@@ -1,6 +1,5 @@
 ﻿using ScalarField;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 namespace PavelKouril.MarchingCubesGPU

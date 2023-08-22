@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class Pointbased 
 {
-
+ static List<int> targetIndex;
     public static void SelectMC(Vector3 input,DensityField dF,ParticleGroup pG,MarchingCubeGPU McGPU)
     {
        
         if (dF.VectorToBoxIndex(input, pG) != -1)
         { 
            
-                List<int> targetIndex = Utility.FloodFilling(GetRevisedNodeIndex_Gradient(pG, dF, input), Utility.InterpolateVector(input, pG, dF), dF, pG);
+                targetIndex = Utility.FloodFilling(GetRevisedNodeIndex_Gradient(pG, dF, input), Utility.InterpolateVector(input, pG, dF), dF, pG);
                 McGPU.SetMCFlagTexture(targetIndex);
                 McGPU.SetMCGPUThreshold((float)Utility.InterpolateVector(input, pG, dF));
             
@@ -28,7 +28,7 @@ public class Pointbased
         if (dF.VectorToBoxIndex(input, pG) != -1)
         {
            
-                List<int> targetIndex = Utility.FloodFilling(GetRevisedNodeIndex_Gradient(pG, dF, input), Utility.InterpolateVector(input, pG, dF), dF, pG, true);
+             Utility.FloodFilling(GetRevisedNodeIndex_Gradient(pG, dF, input), Utility.InterpolateVector(input, pG, dF), dF, pG, true);
             
         }
         else

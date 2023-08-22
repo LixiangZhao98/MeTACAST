@@ -9,18 +9,18 @@ public class RenderDataRunTime : MonoBehaviour
     public float mapRealSize=0.5f; //real size in VR of wim
     public float ratio;
     [SerializeField]
-    public Mesh unselected_mesh0;
+    [HideInInspector]public Mesh unselected_mesh0;
     [SerializeField]
-    public Mesh selected_mesh0;
+    [HideInInspector]public Mesh selected_mesh0;
     [SerializeField]
-    public Mesh target_mesh0;
+    [HideInInspector]public Mesh target_mesh0;
       [SerializeField]
-    public Mesh unselected_mesh1;
+    [HideInInspector]public Mesh unselected_mesh1;
     [SerializeField]
-    public Mesh selected_mesh1;
+   [HideInInspector] public Mesh selected_mesh1;
     [SerializeField]
-    public Mesh target_mesh1;
-    public bool frameBufferSwitch;
+   [HideInInspector] public Mesh target_mesh1;
+   [HideInInspector] public bool frameBufferSwitch;
      Matrix4x4 m;
 
      private void Start()

@@ -1,7 +1,5 @@
-﻿
+
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 
 
@@ -262,11 +260,6 @@ namespace ParticleProperty
         }
 
       
-        private Color MyColor(float r, float g, float b, float a)
-        {
-            Color c = new Color(r / 255f, g / 255f, b / 255f, a / 255);
-            return c;
-        }
 #endregion
 
     }

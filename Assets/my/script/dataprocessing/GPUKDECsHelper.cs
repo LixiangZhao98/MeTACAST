@@ -129,6 +129,9 @@ public class GPUKDECsHelper
         parPos.Release();
         gridPos.Release();
         nodeDen.Release();
+        parDen.Release();
+
+
 
     }
     static bool GridPointIsOnDataBoundary(DensityField df, int index)
