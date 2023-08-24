@@ -242,21 +242,21 @@ public static List<int> ReviseFloodFilling(int index, double thre, DensityField 
                     {
                         
                            isVisited[i] = true;
-                        //if (i >= 0 && i < dF.GetNodeNum())
+                        if (i >= 0 && i < dF.GetNodeNum())
                             nodes.Push(i);
-                        //if (i - 1 >= 0 && i - 1 < dF.GetNodeNum())
+                        if (i - 1 >= 0 && i - 1 < dF.GetNodeNum())
                             nodes.Push(i - 1);
-                        //if (i - dF.XNUM >= 0 && i - dF.XNUM < dF.GetNodeNum())
+                        if (i - dF.XNUM >= 0 && i - dF.XNUM < dF.GetNodeNum())
                             nodes.Push(i - dF.XNUM);
-                        //if (i - dF.XNUM - 1 >= 0 && i - dF.XNUM - 1 < dF.GetNodeNum())
+                        if (i - dF.XNUM - 1 >= 0 && i - dF.XNUM - 1 < dF.GetNodeNum())
                             nodes.Push(i - dF.XNUM - 1);
-                        //if (i - dF.XNUM * dF.YNUM >= 0 && i - dF.XNUM * dF.YNUM < dF.GetNodeNum())
+                        if (i - dF.XNUM * dF.YNUM >= 0 && i - dF.XNUM * dF.YNUM < dF.GetNodeNum())
                             nodes.Push(i - dF.XNUM * dF.YNUM);
-                        //if (i - dF.XNUM * dF.YNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - 1 < dF.GetNodeNum())
+                        if (i - dF.XNUM * dF.YNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - 1 < dF.GetNodeNum())
                             nodes.Push(i - dF.XNUM * dF.YNUM - 1);
-                        //if (i - dF.XNUM * dF.YNUM - dF.XNUM >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM < dF.GetNodeNum())
+                        if (i - dF.XNUM * dF.YNUM - dF.XNUM >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM < dF.GetNodeNum())
                             nodes.Push(i - dF.XNUM * dF.YNUM - dF.XNUM);
-                        //if (i - dF.XNUM * dF.YNUM - dF.XNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM - 1 < dF.GetNodeNum())
+                        if (i - dF.XNUM * dF.YNUM - dF.XNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM - 1 < dF.GetNodeNum())
                             nodes.Push(i - dF.XNUM * dF.YNUM - dF.XNUM - 1);
                     }
                 }
