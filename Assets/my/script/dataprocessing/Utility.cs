@@ -507,3 +507,27 @@ public static List<int> ReviseFloodFilling(int index, double thre, DensityField 
     }
 
 }
+
+
+
+//    if (dF.GetNodeDensity(i) > thre && isVisited[i] == false)
+//                     {
+                        
+//                            isVisited[i] = true;
+//                         if (i >= 0 && i < dF.GetNodeNum()){if(isVisited[i]) nodes.Push(i);}
+                           
+//                         if (i - 1 >= 0 && i - 1 < dF.GetNodeNum()){if(isVisited[i-1]) nodes.Push(i - 1);}
+                            
+//                         if (i - dF.XNUM >= 0 && i - dF.XNUM < dF.GetNodeNum()){if(isVisited[i-dF.XNUM])  nodes.Push(i - dF.XNUM);}
+                         
+//                         if (i - dF.XNUM - 1 >= 0 && i - dF.XNUM - 1 < dF.GetNodeNum()){if(isVisited[i - dF.XNUM - 1])  nodes.Push(i - dF.XNUM - 1);}
+                        
+//                         if (i - dF.XNUM * dF.YNUM >= 0 && i - dF.XNUM * dF.YNUM < dF.GetNodeNum()){if(isVisited[i - dF.XNUM * dF.YNUM])  nodes.Push(i - dF.XNUM * dF.YNUM);}
+                      
+//                         if (i - dF.XNUM * dF.YNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - 1 < dF.GetNodeNum()){if(isVisited[i - dF.XNUM * dF.YNUM - 1])  nodes.Push(i - dF.XNUM * dF.YNUM - 1);}
+                    
+//                         if (i - dF.XNUM * dF.YNUM - dF.XNUM >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM < dF.GetNodeNum()){if(isVisited[i - dF.XNUM * dF.YNUM - dF.XNUM])  nodes.Push(i - dF.XNUM * dF.YNUM - dF.XNUM);}
+                         
+//                         if (i - dF.XNUM * dF.YNUM - dF.XNUM - 1 >= 0 && i - dF.XNUM * dF.YNUM - dF.XNUM - 1 < dF.GetNodeNum()){if(isVisited[i - dF.XNUM * dF.YNUM - dF.XNUM - 1])  nodes.Push(i - dF.XNUM * dF.YNUM - dF.XNUM - 1);}
+                       
+//                     }

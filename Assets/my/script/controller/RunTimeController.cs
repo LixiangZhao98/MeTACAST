@@ -32,7 +32,7 @@ public class RunTimeController : MonoBehaviour
             }
     }
 
-    private int gridNum=99;
+    private int gridNum=64;
     [SerializeField, SetProperty("GRIDNUM")]
     private GRIDNum gRIDNum;
     public GRIDNum GRIDNUM
