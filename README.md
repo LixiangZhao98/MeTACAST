@@ -29,6 +29,7 @@ This is a repository for demo and source code of the paper "MeTACAST: a family o
 ## Control
 * hold `trigger` on the right controller to input
 * use `joysticker/touchpad` on the right controller
-* switch selection techniques and datasets on UI in VR or on the inspector of Unity Editor (click the gameobject `script/RunTimeController` in Hierarchy)
+* hit the `undo`, `redo` and `reset` on the ui by the red sphere in your right hand to undo, redo and reset
+* switch selection techniques and datasets on the inspector of Unity Editor (click the gameobject `script/RunTimeController` in Hierarchy)
 
  
