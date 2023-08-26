@@ -1,10 +1,10 @@
-LixaingZhao.MeTACAST: a family of Target- and Context-aware spatial selection techniques for 3D point cloud data in VR
+MeTACAST: a family of Target- and Context-aware spatial selection techniques for 3D point cloud data in VR
 ======
-![LixaingZhao.MeTACAST_Image](https://github.com/LixiangZhao98/LixaingZhao.MeTACAST/blob/master/Assets/my/pic/LixaingZhao.MeTACAST.png "LixaingZhao.MeTACAST_Image")
-This is a repository for demo and source code of the paper "LixaingZhao.MeTACAST: a family of Target- and Context-aware spatial selection techniques for 3D point cloud data in VR", presented at [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG")
+![MeTACAST_Image](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/pic/MeTACAST.png "MeTACAST_Image")
+This is a repository for demo and source code of the paper "MeTACAST: a family of Target- and Context-aware spatial selection techniques for 3D point cloud data in VR", presented at [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG")
 
 # Project website
-[https://yulingyun.com/LixaingZhao.MeTACAST/](https://yulingyun.com/LixaingZhao.MeTACAST/ "LixaingZhao.MeTACAST")
+[https://yulingyun.com/LixaingZhao.MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
 
 # Video
 [https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video")
@@ -12,7 +12,7 @@ This is a repository for demo and source code of the paper "LixaingZhao.MeTACAST
 # User study data and R script
 [https://osf.io/dvj9n/](https://osf.io/dvj9n/ "osf")
 
-# LixaingZhao.MeTACAST source code
+# MeTACAST source code
 ## Requirement
 * [Unity3D](https://unity3d.com/get-unity/download "Unity download") (Recommended version [2020.3.38f1](https://unity.cn/releases/lts/2020 "Unity3D 2020.3.38f1"))
 * [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin")
