@@ -4,7 +4,7 @@ MeTACAST: a family of Target- and Context-aware spatial selection techniques for
 This is a repository for demo and source code of the paper "MeTACAST: a family of Target- and Context-aware spatial selection techniques for 3D point cloud data in VR", presented at [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG")
 
 # Project website
-[https://yulingyun.com/LixaingZhao.MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
+[https://yulingyun.com/MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
 
 # Video
 [https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video")
@@ -30,6 +30,4 @@ This is a repository for demo and source code of the paper "MeTACAST: a family o
 * hold `trigger` on the right controller to input
 * use `joysticker/touchpad` on the right controller
 * hit the `undo`, `redo` and `reset` on the ui by the red sphere in your right hand to undo, redo and reset
-* switch selection techniques and datasets on the inspector of Unity Editor (click the gameobject `script/RunTimeController` in Hierarchy)
-
- 
+* switch selection techniques, resolution of the density grid and datasets on the inspector of Unity Editor (click the gameobject `script/RunTimeController` in Hierarchy)
