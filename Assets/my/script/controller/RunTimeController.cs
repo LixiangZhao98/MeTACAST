@@ -1,8 +1,16 @@
-using PavelKouril.MarchingCubesGPU;
+//
+//  RunTimeController.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
+
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace LixaingZhao.MeTACAST{
 public class RunTimeController : MonoBehaviour
 {
 
@@ -108,3 +116,4 @@ public enum Dataset { disk, uniform_Lines, ball_hemisphere, ununiform_Lines, Flo
 public enum GRIDNum { grid64, grid100, grid200 };
 
 
+}

@@ -1,11 +1,15 @@
+//
+//  Selection.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
+
 using HTC.UnityPlugin.Vive;
-using PavelKouril.MarchingCubesGPU;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using UnityEngine;
 
+namespace LixaingZhao.MeTACAST{
 public class Selection : MonoBehaviour
 {
     SelectionTech selectionTech;
@@ -388,5 +392,5 @@ public class Selection : MonoBehaviour
     }
 }
 
-
+}
 

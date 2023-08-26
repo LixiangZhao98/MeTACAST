@@ -1,9 +1,8 @@
-﻿using ScalarField;
+﻿//The following code is modified from "unity-marching-cubes-gpu" by Pavel Kouřil. Original at: "https://github.com/pavelkouril/unity-marching-cubes-gpu"
 using System.Collections.Generic;
 using UnityEngine;
+using LixaingZhao.MeTACAST;
 
-namespace PavelKouril.MarchingCubesGPU
-{
     public class MarchingCubeGPU : MonoBehaviour
     {
         public float MCGPUThreshold;
@@ -184,5 +183,3 @@ namespace PavelKouril.MarchingCubesGPU
 
     }
     
-    
-}

@@ -1,10 +1,15 @@
-
+//
+//  ParticleProperty.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
 using System.Collections.Generic;
 using UnityEngine;
 
 
 
-namespace ParticleProperty
+namespace LixaingZhao.MeTACAST
 {
 
     [System.Serializable]

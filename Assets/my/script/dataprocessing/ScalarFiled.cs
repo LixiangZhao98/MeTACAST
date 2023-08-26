@@ -1,8 +1,15 @@
-﻿using ParticleProperty;
+﻿//
+//  ScalarField.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-namespace ScalarField
+
+namespace LixaingZhao.MeTACAST
 {
 
     [System.Serializable]

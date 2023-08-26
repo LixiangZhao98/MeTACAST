@@ -1,8 +1,14 @@
-
+//
+//  DataMemory.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
 using System.Collections.Generic;
 using UnityEngine;
-using ParticleProperty;
-using ScalarField;
+
+
+namespace LixaingZhao.MeTACAST{
 public class DataMemory : MonoBehaviour
 {
 
@@ -153,11 +159,5 @@ public class DataMemory : MonoBehaviour
     }
     #endregion
 
-
-
-
-
-
-
-
+}
 }

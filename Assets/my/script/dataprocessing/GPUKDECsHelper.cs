@@ -1,10 +1,15 @@
+//
+//  GPUKDECsHelper.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
 using System.Collections.Generic;
 using UnityEngine;
-using ScalarField;
-using ParticleProperty;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
+namespace LixaingZhao.MeTACAST{
 public class GPUKDECsHelper
 {
     static ComputeShader KDE_Cs;
@@ -167,5 +172,5 @@ public class GPUKDECsHelper
 
 
 }
-
+}
 

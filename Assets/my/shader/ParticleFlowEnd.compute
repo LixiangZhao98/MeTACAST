@@ -1,5 +1,10 @@
-// Each #kernel tells which function to compile; you can have many kernels
- #include "UnityCG.cginc"
+//
+//  ParticleFlowEnd.compute
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
+
 #pragma kernel ParticleFlowEnd
 
 RWStructuredBuffer<float3> flowEnd;
@@ -12,26 +17,6 @@ float4 parNum;
 float3 InterpolateGradient(float3 v) ;
  int NodePosToIndex(int z, int y, int x);
   
-
-//  //Dispatch(5,3,2)
-//[numthreads(10,8,3)]
-//void CSMain (uint3 id : SV_DispatchThreadID)
-//{
-//	int idx = id.x + id.y * 5 * 10 + id.z * 5 * 10 * 3 * 8;
-//	testArray1[idx] = id.x;
-//	//testArray1[idx] = id.y;
-//}
-
-//[numthreads(10, 8, 3)]
-//void CSMain2(uint3 id : SV_GroupThreadID)
-//{
-//	int idx = id.x + id.y * 10 + id.z * 10 * 8;
-//	testArray1[idx] = id.x;
-//	//testArray1[idx] = id.y;
-//}
-
-
-
 [numthreads(8,8,8)]
 void ParticleFlowEnd (uint idx : SV_GROUPINDEX)
 {  

@@ -1,4 +1,12 @@
+//
+//  EditorController.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
 using UnityEngine;
+
+namespace LixaingZhao.MeTACAST{
 
 public class EditorController : MonoBehaviour
 {
@@ -42,7 +50,7 @@ public class EditorController : MonoBehaviour
 
     }
 
-
+}
 
 
 }

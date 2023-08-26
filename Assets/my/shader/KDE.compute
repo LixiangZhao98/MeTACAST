@@ -1,3 +1,9 @@
+//
+//  KDE.compute
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
 #pragma kernel Pilot
 #pragma kernel SL_Modified
 #pragma kernel FinalDensity

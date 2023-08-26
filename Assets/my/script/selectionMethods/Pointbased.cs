@@ -1,9 +1,14 @@
-using ParticleProperty;
-using PavelKouril.MarchingCubesGPU;
-using ScalarField;
+//
+//  Pointbased.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
+
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace LixaingZhao.MeTACAST{
 public class Pointbased 
 {
  static List<int> targetIndex;
@@ -51,4 +56,5 @@ public class Pointbased
 
         return dF.VectorToBoxIndex(newPos, pG);
     }
+}
 }

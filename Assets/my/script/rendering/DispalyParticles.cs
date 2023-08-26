@@ -1,7 +1,14 @@
-using ParticleProperty;
+//
+//  DisplayParticles.cs
+//  MeTACAST
+//
+//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
+//
+
+
 using System.Collections.Generic;
 using UnityEngine;
-
+namespace LixaingZhao.MeTACAST{
  public class DisplayParticles
 {
 
@@ -139,6 +146,6 @@ using UnityEngine;
 
     }
 
-    
+}
  
 }
