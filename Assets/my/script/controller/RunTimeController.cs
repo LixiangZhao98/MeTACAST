@@ -49,7 +49,7 @@ public class RunTimeController : MonoBehaviour
             set
             {      
         if (value == GRIDNum.grid100)
-            {gridNum = 99;}
+            {gridNum = 100;}
         if (value == GRIDNum.grid64)
             gridNum = 64;
         if (value == GRIDNum.grid200)
