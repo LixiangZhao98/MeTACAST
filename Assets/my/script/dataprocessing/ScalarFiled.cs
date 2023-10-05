@@ -112,36 +112,38 @@ namespace LixaingZhao.MeTACAST
                 return a;
         }
         public void InitializeDensityFieldByGapDis(string pgName,float xmin, float xmax, int xAxisNum, float ymin, float ymax, int yAxisNum, float zmin, float zmax, int zAxisNum)
-        {name = pgName;
+         {
+           
+           name = pgName;
             fieldNode = new List<FieldNode>();
-            int xindex = 0, yindex = 0, zindex = 0;
-            xStep = GetProcessedFloat((xmax - xmin) / xAxisNum);
-            yStep = GetProcessedFloat((ymax - ymin) / yAxisNum);
-            zStep = GetProcessedFloat((zmax - zmin) / zAxisNum);
+            xStep = (xmax - xmin) / (xAxisNum-1);
+            yStep = (ymax - ymin) / (yAxisNum-1);
+            zStep = (zmax - zmin) / (zAxisNum-1);
 
-            for (float i = zmin; i <= zmax; i += zStep)
+            for (float z = 0; z < zAxisNum; z+= 1)
             {
-                yindex = 0;
-                for (float j = ymin; j <= ymax; j += yStep)
+               
+                for (float y = 0; y < yAxisNum; y+= 1)
                 {
-                    xindex = 0;
-                    for (float k = xmin; k <= xmax; k += xStep)
+                    
+                    for (float x= 0; x < xAxisNum; x+= 1)
                     {
-                        FieldNode fd = new FieldNode(new Vector3(k, j, i), new Vector3(xindex, yindex, zindex));
+                        FieldNode fd = new FieldNode(new Vector3(xmin+x*xStep, ymin+y*yStep, zmin+z*zStep), new Vector3(x, y, z));
                       
                         fieldNode.Add(fd);
-                        xindex++;
+                       
                     }
-                    yindex++;
+                   
                 }
-                zindex++;
+              
             }
 
+            
 
-            xNum = xindex;
-            yNum = yindex;
-            zNum = zindex;
-
+            xNum = xAxisNum;
+            yNum = yAxisNum;
+            zNum = zAxisNum;
+             Debug.Log(xNum+" "+yNum+" "+zNum+" aaaanum");
             DiscreteClear();
 
         }
