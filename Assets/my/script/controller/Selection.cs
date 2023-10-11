@@ -71,17 +71,8 @@ public class Selection : MonoBehaviour
 
     private void Update()
     {
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.AKey)) //release the second stack
-        {
-            Undo();
 
-        }
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.BKey)) //release the second stack
-        {
-            Redo();
-
-        }
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)) //release the second stack
+        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default) //release the second stack
         {
             DataMemory.ReleaseOperatorStack();
 
@@ -189,11 +180,11 @@ public class Selection : MonoBehaviour
     void pointbasedselection()
     {
        
-        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             Pointbased.SelectMC(map.InverseTransformPoint(marker.position), DataMemory.densityField, DataMemory.allParticle, McGPU);
         }
-        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             Pointbased.SelectParticles(map.InverseTransformPoint(marker.position), DataMemory.densityField, DataMemory.allParticle, McGPU);
             RD.GenerateMesh();
@@ -206,7 +197,7 @@ public class Selection : MonoBehaviour
     #region MeTABrush
     void linebasedselection()
     {
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
 
             Linebased.Init();
@@ -214,7 +205,7 @@ public class Selection : MonoBehaviour
         }
 
 
-        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
 
             Linebased.SelectMC(controllerDraw.GetPointList(), R, DataMemory.densityField, DataMemory.densityField2, ref densityThreInitial, DataMemory.allParticle, McGPU);
@@ -283,7 +274,7 @@ public class Selection : MonoBehaviour
     #region MeTAPaint
     void structurebasedselection()
     {
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
     
             Structurebased.Init();
@@ -291,7 +282,7 @@ public class Selection : MonoBehaviour
         }
 
 
-        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             Structurebased.SelectMC(/*GameObject.Find("maxO"),*/ controllerDraw.GetPointList(), DataMemory.densityField, ref densityThreInitial, DataMemory.allParticle, McGPU);
             McGPU.SetMCFlagTexture(Structurebased.GetboxIndexesOfComponentsByMaxNumSeed(densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.densityField, DataMemory.allParticle)); //ֻ��������maxLine����  ���԰�һЩ����������ֻ������maxline�ϵ�������
@@ -352,21 +343,21 @@ public class Selection : MonoBehaviour
 
     void baseline()
     {
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
 
             brushNum = 0;
             brushInOnePress = new List<int>();
 
         }
-        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             brushInOnePress.AddRange(Baseline.SelectParticles(map.InverseTransformPoint(marker.position), R, DataMemory.allParticle));
             RD.GenerateMesh(false);
             brushNum++;
         }
 
-        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             DataMemory.AddParticles(brushInOnePress);
         }

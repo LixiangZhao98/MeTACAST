@@ -4,6 +4,7 @@ Temp/
 .vsconfig
 Logs/
 UserSettings/
+ProjectSettings/
 Packages/
 obj/
 Assets/HTC.UnityPlugin

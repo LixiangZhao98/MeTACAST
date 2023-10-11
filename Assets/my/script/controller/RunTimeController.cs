@@ -16,27 +16,30 @@ public class RunTimeController : MonoBehaviour
 
 
 [SerializeField, SetProperty("DATASET")]
-    private Dataset dataset;
+    private Dataset dataset=Dataset.nbody2;
 
     public Dataset DATASET
         {
             get { return dataset; }
             set {
-                    dataset = value;
+                     dataset=value;
                      SwitchDatasetFromFile(dataset.ToString());
+                
+                  
             }
         }
 
+
 [SerializeField, SetProperty("SELECTIONTECH")]
-   private SelectionTech selectionTech;
+   private SelectionTech selectionTech=SelectionTech.Point;
    public  SelectionTech SELECTIONTECH
     {
             get { return selectionTech; }
             set
-            {      
-                selectionTech = value;
+            {   
+                 selectionTech=value;
                  SwitchSelectionTech(selectionTech);
-                   
+
             }
     }
 
@@ -48,6 +51,7 @@ public class RunTimeController : MonoBehaviour
           get {return gRIDNum;}
             set
             {      
+                gRIDNum=value;
         if (value == GRIDNum.grid100)
             {gridNum = 100;}
         if (value == GRIDNum.grid64)
@@ -55,10 +59,13 @@ public class RunTimeController : MonoBehaviour
         if (value == GRIDNum.grid200)
             gridNum = 200;
              SwitchDatasetFromFile(dataset.ToString());
-                   
+                
             }
     }
-
+public void SetGRIDNum(int g)
+{
+gridNum=g;
+}
     public string LoadFlagName;
     public string StoreFlagName;
     public bool LoadFlag;

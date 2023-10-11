@@ -143,7 +143,7 @@ namespace LixaingZhao.MeTACAST
             xNum = xAxisNum;
             yNum = yAxisNum;
             zNum = zAxisNum;
-             Debug.Log(xNum+" "+yNum+" "+zNum+" aaaanum");
+        
             DiscreteClear();
 
         }

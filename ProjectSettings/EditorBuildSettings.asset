@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/my/Scenes/demo.unity
-    guid: d043d2ffa7672034e80554a01bc40c2e
+    path: Assets/my/Scenes/demoWithMenu.unity
+    guid: 7301fd9335ba5f74fb8d2e51b02ef5f7
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 9632f46b875f3254ab2d4e8cde0832c9, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 13ae109e95e2c7c44a25be278f86fba8, type: 2}

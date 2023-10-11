@@ -44,12 +44,12 @@ public class ControllerDraw : MonoBehaviour
   
     void Update()
     {
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             _Init();
         }
 
-        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
            
             Vector3 v = PointCloudMeshinHand.transform.InverseTransformPoint(drawPos.position);
@@ -76,7 +76,7 @@ public class ControllerDraw : MonoBehaviour
             }
         }
 
-        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             
             m_init = false;
