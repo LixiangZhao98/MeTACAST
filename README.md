@@ -27,7 +27,18 @@ This is a repository for demo and source code of the paper "MeTACAST: a family o
 6. run `Assets/my/Scenes/demo.unity` in the Unity Editor after connecting the VR devices
 
 ## Control
-* hold `trigger` on the right controller to input
-* use `joysticker/touchpad` on the right controller
-* hit the `undo`, `redo` and `reset` on the ui by the red sphere in your right hand to undo, redo and reset
-* switch selection techniques, resolution of the density grid and datasets on the inspector of Unity Editor (click the gameobject `script/RunTimeController` in Hierarchy)
+* hold `trigger` on the right controller to start selection, release `trigger` to confirm selection
+* use `joysticker/touchpad` on the right controller to adjust density threshold (MeTABrush and MeTAPaint)
+* hold `grip` to erase the selected region.
+* hit the `undo`, `redo` and `reset` on the ui (above the data on the left controller) by the red sphere in your right controller to undo, redo and reset
+* switch `selection techniques`, `resolution of the density grid` and `datasets` on the inspector of Unity Editor (click the gameobject `script/RunTimeController` in Hierarchy)
+
+# MeTACAST Demo
+## Run the demo
+1. the demo runs on windows platform
+2. download `MeTACAST_Demo.zip` from Releases and run `MeTACAST_Demo.exe` after connecting the PC-Powered VR Headsets 
+
+## Control
+* open the menu with `Menu`, `AKey` or `Bkey` on the right controller to switch `selection techniques` and `datasets`
+* other operations and controls are the same as abovementioned
+
