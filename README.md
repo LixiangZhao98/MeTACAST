@@ -9,6 +9,7 @@ We propose three novel spatial data selection techniques for particle data in VR
 
 # Paper
 [https://ieeexplore.ieee.org/document/10292508](https://ieeexplore.ieee.org/document/10292508 "ieeexplore")
+
 [https://arxiv.org/abs/2308.03616](https://arxiv.org/abs/2308.03616 "arxiv")
 
 # Video
