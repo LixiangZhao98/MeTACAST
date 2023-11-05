@@ -1,10 +1,15 @@
-MeTACAST: a family of Target- and Context-aware spatial selection techniques for 3D point cloud data in VR
+MeTACAST: Target- and Context-aware spatial selection techniques for 3D point cloud data in VR
 ======
 ![MeTACAST_Image](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/pic/MeTACAST.png "MeTACAST_Image")
-This is a repository for demo and source code of the paper "MeTACAST: a family of Target- and Context-aware spatial selection techniques for 3D point cloud data in VR", presented at [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG")
+This is a repository for demo and source code of the paper "MeTACAST: Target- and Context-aware spatial selection techniques for 3D point cloud data in VR", presented at [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG")
 
+We propose three novel spatial data selection techniques for particle data in VR \revise{visualization} environments. They are designed to be target- and context-aware and be suitable for a wide range of data features and complex scenarios. Each technique is designed to be adjusted to particular selection intents: the selection of consecutive dense regions, the selection of filament-like structures, and the selection of clusters---with all of them facilitating post-selection threshold adjustment. These techniques allow users to precisely select those regions of space for further exploration---with simple and approximate 3D pointing, brushing, or drawing input---using flexible point- or path-based input and without being limited by 3D occlusions, non-homogeneous feature density, or complex data shapes. These new techniques are evaluated in a controlled experiment and compared with the Baseline method, a region-based 3D painting selection. Our results indicate that our techniques are effective in handling a wide range of scenarios and allow users to select data based on their comprehension of crucial features. Furthermore, we analyze the attributes, requirements, and strategies of our spatial selection methods and compare them with existing state-of-the-art selection methods to handle diverse data features and situations. Based on this analysis we provide guidelines for choosing the most suitable 3D spatial selection techniques based on the interaction environment, the given data characteristics, or the need for interactive post-selection threshold adjustment.
 # Project website
 [https://yulingyun.com/MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
+
+# Paper
+[https://ieeexplore.ieee.org/document/10292508](https://ieeexplore.ieee.org/document/10292508 "ieeexplore")
+[https://arxiv.org/abs/2308.03616](https://arxiv.org/abs/2308.03616 "arxiv")
 
 # Video
 [https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video")
