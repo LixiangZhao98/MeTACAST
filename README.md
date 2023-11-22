@@ -59,7 +59,6 @@ Any pull requests and issues are welcome.
   year={2023},
   publisher={IEEE}
 }
-}
 ```
 # Relevant repository
 The point cloud visualization is built based on [PointCloud-Visualization-Tool](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool "PointCloud-Visualization-Tool")
