@@ -4,19 +4,6 @@ MeTACAST: Target- and Context-aware spatial selection techniques for 3D point cl
 This is a repository for demo and source code of the paper "MeTACAST: Target- and Context-aware spatial selection techniques for 3D point cloud data in VR", presented at [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG")
 
 We propose three novel spatial data selection techniques for particle data in VR visualization environments, `MeTAPoint`, `MeTABrush` and `MeTAPaint` . They are designed to be target- and context-aware and be suitable for a wide range of data features and complex scenarios. Each technique is designed to be adjusted to particular selection intents: the selection of consecutive dense regions, the selection of filament-like structures, and the selection of clusters---with all of them facilitating post-selection threshold adjustment. These techniques allow users to precisely select those regions of space for further exploration---with simple and approximate 3D pointing, brushing, or drawing input---using flexible point- or path-based input and without being limited by 3D occlusions, non-homogeneous feature density, or complex data shapes.
-# Project website
-[https://yulingyun.com/MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
-
-# Paper
-[https://ieeexplore.ieee.org/document/10292508](https://ieeexplore.ieee.org/document/10292508 "ieeexplore")
-
-[https://arxiv.org/abs/2308.03616](https://arxiv.org/abs/2308.03616 "arxiv")
-
-# Video
-[https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video")
-
-# User study data and R script
-[https://osf.io/dvj9n/](https://osf.io/dvj9n/ "osf")
 
 # MeTACAST Demo
 ## Run the demo
@@ -47,7 +34,25 @@ We propose three novel spatial data selection techniques for particle data in VR
 * hit the `undo`, `redo` and `reset` on the ui (above the data on the left controller) by the red sphere in your right controller to undo, redo and reset
 * switch `selection techniques`, `resolution of the density grid` and `datasets` on the inspector of Unity Editor (click the gameobject `script/RunTimeController` in Hierarchy)
 
-# Relevant repo
+
+# Project website
+[https://yulingyun.com/MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
+
+# Links to Paper
+[ieeexplore](https://ieeexplore.ieee.org/document/10292508 "ieeexplore")
+
+[arxiv](https://arxiv.org/abs/2308.03616 "arxiv")
+
+# Video
+[youtube](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video")
+
+# User study data and R script
+[osf](https://osf.io/dvj9n/ "osf")
+
+# Relevant repository
 * The point cloud visualization is built based on [PointCloud-Visualization-Tool](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool "PointCloud-Visualization-Tool")
-]
+
+# Thanks
+Many thanks to the authors of open-source repository:
+[unity-marching-cubes-gpu](https://github.com/pavelkouril/unity-marching-cubes-gpu "unity-marching-cubes-gpu")
 
