@@ -5,6 +5,7 @@ This is a repository for demo and source code of the paper "MeTACAST: Target- an
 
 We propose three novel spatial data selection techniques for particle data in VR visualization environments, `MeTAPoint`, `MeTABrush` and `MeTAPaint` . They are designed to be target- and context-aware and be suitable for a wide range of data features and complex scenarios. Each technique is designed to be adjusted to particular selection intents: the selection of consecutive dense regions, the selection of filament-like structures, and the selection of clusters---with all of them facilitating post-selection threshold adjustment. These techniques allow users to precisely select those regions of space for further exploration---with simple and approximate 3D pointing, brushing, or drawing input---using flexible point- or path-based input and without being limited by 3D occlusions, non-homogeneous feature density, or complex data shapes.
 
+Any pull requests and issues are welcome.
 # MeTACAST Demo
 ## Run the demo
 1. the demo only tests on `windows` platform
@@ -49,8 +50,19 @@ We propose three novel spatial data selection techniques for particle data in VR
 # User study data and R script
 [osf](https://osf.io/dvj9n/ "osf")
 
+# Citations
+```bibtex
+@article{zhao2023metacast,
+  title={MeTACAST: Target-and Context-aware Spatial Selection in VR},
+  author={Zhao, Lixiang and Isenberg, Tobias and Xie, Fuqi and Liang, Hai-Ning and Yu, Lingyun},
+  journal={IEEE Transactions on Visualization and Computer Graphics},
+  year={2023},
+  publisher={IEEE}
+}
+}
+```
 # Relevant repository
-* The point cloud visualization is built based on [PointCloud-Visualization-Tool](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool "PointCloud-Visualization-Tool")
+The point cloud visualization is built based on [PointCloud-Visualization-Tool](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool "PointCloud-Visualization-Tool")
 
 # Thanks
 Many thanks to the authors of open-source repository:

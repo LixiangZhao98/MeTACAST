@@ -159,5 +159,28 @@ public class DataMemory : MonoBehaviour
     }
     #endregion
 
+     public static void StoreFlags(string ExtendstoreFileName)
+    {
+        allParticle.StoreFlags(Application.dataPath + "/my/data/" + "/Flags/" + allParticle.name+"_"+ ExtendstoreFileName);
+
+    }
+
+        public static void SaveSelectedAsNewData(string ExtendstoreFileName)
+    {
+        allParticle.SaveSelectedAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+
+    }
+
+            public static void SaveTargetAsNewData(string ExtendstoreFileName)
+    {
+        allParticle.SaveTargetAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+
+    }
+              public static void SaveDataAsNewData(string ExtendstoreFileName)
+    {
+        allParticle.SaveDataAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+
+    }
+
 }
 }

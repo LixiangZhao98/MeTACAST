@@ -5,6 +5,7 @@
 //  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
 //
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -264,7 +265,71 @@ namespace LixaingZhao.MeTACAST
             return vsRevised;
         }
 
-      
+      public void StoreFlags(string name)
+        {
+            List<int> flagtrue = DataMemory.GetpStack().ToList();
+
+            if (flagtrue.Count == 0)
+                Debug.Log("No marked particles");
+            else
+            {
+                SaveData.FlagsToFile(name, flagtrue.ToArray());
+            }
+        }
+
+                public void SaveSelectedAsNewData(string name)
+        {
+            List<int> flagtrue = DataMemory.GetpStack().ToList();
+
+
+            if (flagtrue.Count == 0)
+                Debug.Log("No marked particles");
+            else
+            {            List<Vector3> dataPos=new List<Vector3>();
+            foreach(var d in flagtrue)
+            {
+                dataPos.Add(DataMemory.allParticle.GetParticlePosition(d));
+            }
+                SaveData.Vec3sToFile(name, dataPos.ToArray());
+            }
+        }
+
+               public void SaveTargetAsNewData(string name)
+        {
+              List<Vector3> dataPos=new List<Vector3>();
+             for(int i=0;i< DataMemory.allParticle.GetParticlenum();i++)
+            {
+                if(DataMemory.allParticle.GetTarget(i))
+                dataPos.Add(DataMemory.allParticle.GetParticlePosition(i));
+            }
+
+            if (dataPos.Count == 0)
+                Debug.Log("No Target particles");
+            else
+                     
+                 SaveData.Vec3sToFile(name, dataPos.ToArray());
+            
+               
+            }
+
+
+                          public void SaveDataAsNewData(string name)
+        {
+              List<Vector3> dataPos=new List<Vector3>();
+             for(int i=0;i< DataMemory.allParticle.GetParticlenum();i++)
+            {
+                dataPos.Add(DataMemory.allParticle.GetParticlePosition(i));
+            }
+
+            if (dataPos.Count == 0)
+                Debug.Log("No Target particles");
+            else
+                     
+                 SaveData.Vec3sToFile(name, dataPos.ToArray());
+            
+               
+            }
+
 #endregion
 
     }
