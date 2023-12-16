@@ -141,13 +141,15 @@ public class DataMemory : MonoBehaviour
     static public void CreateDensityField(int gridNum)
     {
 
-        float step = (allParticle.XMAX - allParticle.XMIN) / gridNum;
-        allParticle.XMAX += step;
-        allParticle.XMIN -= step;
-        allParticle.YMAX += step;
-        allParticle.YMIN -= step;
-        allParticle.ZMAX += step;
-        allParticle.ZMIN -= step;
+        float xstep = (allParticle.XMAX - allParticle.XMIN) / gridNum;
+        float ystep = (allParticle.YMAX - allParticle.YMIN) / gridNum;
+        float zstep = (allParticle.ZMAX - allParticle.ZMIN) / gridNum;
+        allParticle.XMAX += xstep;
+        allParticle.XMIN -= xstep;
+        allParticle.YMAX += ystep;
+        allParticle.YMIN -= ystep;
+        allParticle.ZMAX += zstep;
+        allParticle.ZMIN -= zstep;
         densityField.InitializeDensityFieldByGapDis(allParticle.name, allParticle.XMIN, allParticle.XMAX, gridNum, allParticle.YMIN, allParticle.YMAX, gridNum, allParticle.ZMIN, allParticle.ZMAX, gridNum);
         densityField2.InitializeDensityFieldByGapDis(allParticle.name, allParticle.XMIN, allParticle.XMAX, gridNum, allParticle.YMIN, allParticle.YMAX, gridNum, allParticle.ZMIN, allParticle.ZMAX, gridNum);
         Debug.Log("Create density field success");

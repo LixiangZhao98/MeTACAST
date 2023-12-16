@@ -308,7 +308,7 @@ public static List<int> ReviseFloodFilling(int index, double thre, DensityField 
         return nodes;
     }
 
-    public static List<int> GetNodesInArea(ParticleGroup pG, DensityField dF, float dRatio, int parIndex)  //Input by particle position,related to the elipse
+    public static List<int> GetNodesInArea(ParticleGroup pG, DensityField dF, float dRatio, int parIndex)  //Input by particle position, return the nodes in elipsoid shape
     {
         Vector3 nodePos = pG.GetParticlePosition(parIndex);
         Vector3 sL = pG.GetMySmoothLength(parIndex);

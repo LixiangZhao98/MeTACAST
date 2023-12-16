@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.immersive_selection_userstudy.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "E:\\lixiang.zhao\\unity project\\MetaCast_Github\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "immersive_selection_userstudy [Testing]"
+        }
+      }
+    }
+  ]
+}
