@@ -12,10 +12,12 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 # How to use
 MeTACAST is developed with Unity3D on Windows platform. \
 Unity version requirement: Version 2020.3.38f1 and 2021.3.19f1 have been tested.\
-VR headset requirement: HTC Vive Pro/Pro2/Pro eye and Valve Index have been tested. (Oculus is not supported currently, it wil be added in the future. If you want to use Oculus you need to import Oculus package and revise the input logic.)\
+VR headset requirement: HTC Vive Pro/Pro2/Pro eye and Valve Index have been tested. \
+(Oculus is not supported currently, it wil be added in the future. If you want to use Oculus you need to import Oculus package and revise the input logic.)
+
 ## Install MeTACAST:
-- Download Unity3D  and Create a new project. Here is a tutorial ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/Unity Setup_general.pdf "Unity Setup")) if this is the first time to use Unity3D.
-- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin"). Please refer to sec.6 in ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/Unity Setup_general.pdf "Unity Setup")).
+- Download Unity3D  and Create a new project. Here is a tutorial ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup")) if this is the first time to use Unity3D.
+- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin"). Please refer to sec.6 in [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup").
 - Install [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility").
 - Set the `Stereo Rendering Mode` to `Multi Pass`. In the Unity editor, find `Edit/project setting/XR Plug-in Management/OpenVR/Stereo Rendering Mode/Multi Pass`.
 - Copy the `Assets/my` folder in this repo and place it under the `Assets` folder of your project.
@@ -45,14 +47,6 @@ VR headset requirement: HTC Vive Pro/Pro2/Pro eye and Valve Index have been test
 
 # Project website
 [https://yulingyun.com/MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
-
-# Links to Paper
-[ieeexplore](https://ieeexplore.ieee.org/document/10292508 "ieeexplore")
-
-[arxiv](https://arxiv.org/abs/2308.03616 "arxiv")
-
-# Video
-[youtube](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video")
 
 # User study data and R script
 [osf](https://osf.io/dvj9n/ "osf")
