@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HTC.UnityPlugin.Vive;
 using LixaingZhao.MeTACAST;
 using UnityEngine;
+using static LixaingZhao.MeTACAST.Enum;
 
 public class MenuController : MonoBehaviour
 {

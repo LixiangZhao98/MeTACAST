@@ -8,6 +8,7 @@
 using HTC.UnityPlugin.Vive;
 using System.Collections.Generic;
 using UnityEngine;
+using static LixaingZhao.MeTACAST.Enum;
 
 namespace LixaingZhao.MeTACAST{
 public class Selection : MonoBehaviour
