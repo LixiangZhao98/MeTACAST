@@ -17,12 +17,11 @@ VR headset requirement: HTC Vive Pro/Pro2/Pro eye and Valve Index have been test
 
 ## Install MeTACAST:
 - Download Unity3D  and Create a new project. Here is a tutorial ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup")) if this is the first time to use Unity3D.
-- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin"). Please refer to sec.6 in [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup").
-- Install [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility").
+- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin") and [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility"). Please refer to sec.6 in [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup") if you have no idea how to install packages.
 - Set the `Stereo Rendering Mode` to `Multi Pass`. In the Unity editor, find `Edit/project setting/XR Plug-in Management/OpenVR/Stereo Rendering Mode/Multi Pass`.
 - Copy the `Assets/my` folder in this repo and place it under the `Assets` folder of your project.
 - Install [Steam](https://store.steampowered.com/ "Steam") on your PC and download `SteamVR` on Steam.
-- Connect the VR headset with PC.
+- Connect the VR headset with PC and start `SteamVR`.
 - Back to Unity and play `Assets/my/Scenes/demo.unity`.
 
 ## Control
