@@ -134,16 +134,16 @@ public class Selection : MonoBehaviour
         }
 
 
-        float moveyLeft = ViveInput.GetAxis(HandRole.LeftHand, ControllerAxis.JoystickY) * Time.deltaTime * radiusmovespeed; //adjust the radius
-        if (moveyLeft != 0)
-        {
-            R += moveyLeft;
-            if (R > 20f * DataMemory.densityField.XSTEP)
-                R = 20f * DataMemory.densityField.XSTEP;
-            if (R < 1f * DataMemory.densityField.XSTEP)
-                R = 1f * DataMemory.densityField.XSTEP;
-            marker.gameObject.transform.localScale = map.transform.localScale * R;
-        }
+        // float moveyLeft = ViveInput.GetAxis(HandRole.LeftHand, ControllerAxis.JoystickY) * Time.deltaTime * radiusmovespeed; //adjust the radius
+        // if (moveyLeft != 0)
+        // {
+        //     R += moveyLeft;
+        //     if (R > 20f * DataMemory.densityField.XSTEP)
+        //         R = 20f * DataMemory.densityField.XSTEP;
+        //     if (R < 1f * DataMemory.densityField.XSTEP)
+        //         R = 1f * DataMemory.densityField.XSTEP;
+        //     marker.gameObject.transform.localScale = map.transform.localScale * R;
+        // }
 
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.JoystickTouch))   //adjust thre
         {
