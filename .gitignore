@@ -18,6 +18,7 @@ Assets/SteamVR_Input.meta
 Assets/SteamVR_Resources.meta
 Assets/StreamingAssets.meta
 Assets/XR.meta
+unityProject.vrmanifest
 obj/
 *,sln
 *.csproj
