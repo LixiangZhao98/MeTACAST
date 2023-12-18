@@ -135,9 +135,9 @@ namespace LixaingZhao.MeTACAST
         {
             particleGroup[i].SetFlag(flag);
         }
-        public void SetTarget(int i, bool flag)
+        public void SetTarget(int i, bool flag, int type)
         {
-            particleGroup[i].SetTarget(flag);
+              particleGroup[i].SetTarget(flag,type);
         }
         public void SetSmoothLength(Vector3 v)
         {
@@ -348,6 +348,8 @@ namespace LixaingZhao.MeTACAST
         [SerializeField]
         private bool isTarget;
         [SerializeField]
+        private int targetType;
+        [SerializeField]
         private Vector3 gradiant;
         [SerializeField]
         private Vector3 flowEnd;
@@ -412,9 +414,11 @@ namespace LixaingZhao.MeTACAST
         {
             isSelected = flag;
         }
-        public void SetTarget(bool t)
+        public void SetTarget(bool t, int type)
         {
+
             isTarget = t;
+            targetType=type;
         }
         public void SetGradient(Vector3 grad)
         {

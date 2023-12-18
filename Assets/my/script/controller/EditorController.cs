@@ -4,6 +4,7 @@
 //
 //  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
 //
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace LixaingZhao.MeTACAST{
@@ -11,11 +12,9 @@ namespace LixaingZhao.MeTACAST{
 public class EditorController : MonoBehaviour
 {
     public string loadFileName;
-    public string loadFlagName;
-    public string StoreFlagsName;
+    public List<FlagNamesCollection>  loadFlagNames;
     public bool LoadFlag;
     public int gridNum = 64;
- 
     
     // Start is called before the first frame update
     [ContextMenu("LoadCsv and CreateField")]
@@ -26,7 +25,7 @@ public class EditorController : MonoBehaviour
 
         DataMemory.LoadDataByCsv(loadFileName);
         DataMemory.CreateDensityField(gridNum);
-        DataMemory.DisplayAllParticle(LoadFlag, loadFlagName);
+        DataMemory.DisplayAllParticle(LoadFlag, loadFlagNames);
 
     }
     [ContextMenu("LoadByte and CreateField")]
@@ -35,7 +34,7 @@ public class EditorController : MonoBehaviour
 
         DataMemory.LoadDataByByte(loadFileName);
         DataMemory.CreateDensityField(gridNum);
-        DataMemory. DisplayAllParticle(LoadFlag, loadFlagName);
+        DataMemory. DisplayAllParticle(LoadFlag, loadFlagNames);
 
     }
 

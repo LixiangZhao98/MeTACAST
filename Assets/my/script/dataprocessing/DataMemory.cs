@@ -25,13 +25,20 @@ public class DataMemory : MonoBehaviour
         pOperateStack=new Stack<List<int>>();
 
     }
-    public static void LoadFlagsToStack(string name)
+    public static void LoadFlagsToStack(List<FlagNamesCollection> names)
     {
-        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/my/data/flags/" + allParticle.name+"_"+ name);
+        foreach(var name in names)
+        {
+          for(int n=0;n<name.FlagNames.Length;n++)
+        {
+        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/my/data/flags/" + allParticle.name+"_"+ name.FlagNames[n]);
         for (int i = 0; i < flags.Length; i++)
         {
-           
-            DataMemory.allParticle.SetTarget(flags[i], true); }
+
+            DataMemory.allParticle.SetTarget(flags[i], true, names.IndexOf(name)); 
+        }
+        }
+        }
             
     }
 
@@ -83,11 +90,10 @@ public class DataMemory : MonoBehaviour
 
 
 
-    public static void DisplayAllParticle(bool loadFlag, string LoadFlagName)
+    public static void DisplayAllParticle(bool loadFlag, List<FlagNamesCollection>  LoadFlagNames)
     {
         StacksInitialize();
-        if (loadFlag)
-            LoadFlagsToStack(LoadFlagName);
+            LoadFlagsToStack(LoadFlagNames);
         DisplayParticles.DisplayMesh(GameObject.Find("PointCloudMesh"), allParticle);
     }
     #endregion

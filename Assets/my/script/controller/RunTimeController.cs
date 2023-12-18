@@ -25,6 +25,7 @@ public class RunTimeController : MonoBehaviour
             get { return dataset; }
             set {
                      dataset=value;
+                       if(Application.isPlaying)
                      SwitchDatasetFromFile(dataset.ToString());
                 
                   
@@ -40,6 +41,7 @@ public class RunTimeController : MonoBehaviour
             set
             {   
                  selectionTech=value;
+                   if(Application.isPlaying)
                  SwitchSelectionTech(selectionTech);
 
             }
@@ -60,6 +62,7 @@ public class RunTimeController : MonoBehaviour
             gridNum = 64;
         if (value == GRIDNum.grid200)
             gridNum = 200;
+              if(Application.isPlaying)
              SwitchDatasetFromFile(dataset.ToString());
                 
             }
@@ -68,9 +71,11 @@ public void SetGRIDNum(int g)
 {
 gridNum=g;
 }
-    public string LoadFlagName;
-    public string StoreFlagName;
+    [SerializeField]
+    public List<FlagNamesCollection> LoadFlagNames;
     public bool LoadFlag;
+    public string StoreFlagName;
+
     public string StoreName;
 
 
@@ -105,8 +110,8 @@ gridNum=g;
         }
         DataMemory.CreateDensityField(gridNum);
         GPUKDECsHelper.StartGpuKDE(DataMemory.allParticle, DataMemory.densityField, kde_shader);
-        if (LoadFlag)
-            DataMemory.LoadFlagsToStack(LoadFlagName);
+                    if (LoadFlagNames.Count!=0&&LoadFlag)
+            DataMemory.LoadFlagsToStack(LoadFlagNames);
         RD.GenerateMesh();
         MCgpu.Init();
     }
@@ -121,7 +126,7 @@ gridNum=g;
     [ContextMenu("StoreFlags")]
     public void StoreFlages()
     {
-        DataMemory.StoreFlags(StoreName);
+        DataMemory.StoreFlags(StoreFlagName);
     }
     
 

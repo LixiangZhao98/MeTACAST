@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -9,6 +10,7 @@ public class LoadDataBybyte
 
     static public Vector3[] StartLoad(string filename)
     {
+
         return FloatsToVec3s(BytesToFloats(FileToBytes(filename)));
     }
     static byte[] FileToBytes(string filename)
@@ -23,14 +25,16 @@ public class LoadDataBybyte
             }
         }
         catch(Exception e)
-        {Debug.LogException(e);
-            Debug.LogError("load fail");
-            return null;
+        {
+            Debug.LogException(e);
+            
+            return new byte[0];
         }
     }
 
     static float[] BytesToFloats(byte[] bs)
     {
+
         float[] floatArray = new float[bs.Length / sizeof(float)];
         for(int i=0;i< floatArray.Length;i++)
         {
@@ -61,6 +65,7 @@ public class LoadDataBybyte
     //load flag
     static public int[] StartLoadFlags(string filename)
     {
+
         return BytesToInts(FileToBytes(filename));
     }
 
@@ -91,12 +96,12 @@ public class csvController
     static csvController csv;
     public List<string[]> arrayData;
 
-    private csvController()  
+    private csvController()   //���������췽��Ϊ˽��
     {
         arrayData = new List<string[]>();
     }
 
-    public static csvController GetInstance()   
+    public static csvController GetInstance()   //����������ȡ����
     {
         if (csv == null)
         {
@@ -111,7 +116,7 @@ public class csvController
         StreamReader sr = null;
         try
         {
-            string file_url =fileName;   
+            string file_url =fileName;    //����·�����ļ�
             sr = File.OpenText(file_url);
             Debug.Log("File Find in " + file_url);
         }
@@ -123,10 +128,10 @@ public class csvController
 
         string line;
         int count = 0;
-        while ((line = sr.ReadLine()) != null)  
+        while ((line = sr.ReadLine()) != null)   //���ж�ȡ
         {
             count++;
-            arrayData.Add(line.Split(','));  
+            arrayData.Add(line.Split(','));   //ÿ�ж��ŷָ�,split()�������� string[]
         }
         sr.Close();
         sr.Dispose();
@@ -148,10 +153,10 @@ public class csvController
 
    public Vector3[] StartLoad(string filename)
     {
-     
+        //csvController����csv�ļ�������ģʽ�������ֻ��һ�������������ֻ�ܼ���һ��csv�ļ�
        int count= csvController.GetInstance().loadFile(filename);
         Vector3[] vs = new Vector3[count];
-    
+        //����������ȡcsvController�е�list��csv�ļ������ݣ�����
         for (int i=1;i<count;i++)
         {
             vs[i - 1] = new Vector3(csvController.GetInstance().getFloat(i,1), csvController.GetInstance().getFloat(i, 2), csvController.GetInstance().getFloat(i, 3));
@@ -167,6 +172,7 @@ public class csvController
         {
             File.Create(path).Dispose();
         }
+        //UTF-8��ʽ����
         using (StreamWriter stream = new StreamWriter(path, false, Encoding.UTF8))
         {
             for (int i = 0; i < strs.Length; i++)
