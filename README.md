@@ -1,6 +1,6 @@
 MeTACAST: Target- and Context-aware Spatial Selection in VR
 ======
-![MeTACAST_Image](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/pic/MeTACAST.png "MeTACAST_Image")
+![MeTACAST_Image](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/MeTACAST/pic/MeTACAST.png "MeTACAST_Image")
 
 
 MeTACAST is a set of selection techniques for particle data in VR environment. Users can select a group of particles with natural and simple 6DOF point/stroke input. Refer to the [Video](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video") for a quick review. For more details, please refer to our [Paper](https://doi.org/10.1109/TVCG.2023.3326517) (MeTACAST: Target- and Context-aware Spatial Selection in VR), which is presented on [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG").\
@@ -16,13 +16,13 @@ VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been 
 (Oculus is not supported currently, it wil be added in the future. If you want to use Oculus you need to import Oculus package and revise the input logic.)
 
 ## Install MeTACAST:
-- Download Unity3D  and Create a new project. Here is a tutorial ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup")).
-- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin") and [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility"). Please refer to sec.6 in [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup") to install packages.
+- Download Unity3D  and Create a new project. Here is a tutorial ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/MeTACAST/file/UnitySetup.pdf "Unity Setup")).
+- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin") and [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility"). Please refer to sec.6 in [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/MeTACAST/file/UnitySetup.pdf "Unity Setup") to install packages.
 - Set the `Stereo Rendering Mode` to `Multi Pass`. In the Unity editor, find `Edit/project setting/XR Plug-in Management/OpenVR/Stereo Rendering Mode/Multi Pass`.
-- Copy the `Assets/my` folder in this repo and place it under the `Assets` folder of your project.
+- Copy the `Assets/MeTACAST` folder in this repo and place it under the `Assets` folder of your project.
 - Install [Steam](https://store.steampowered.com/ "Steam") on your PC and download `SteamVR` on Steam.
 - Connect the VR headset with PC and start `SteamVR`.
-- Back to Unity and play `Assets/my/Scenes/demo.unity`.
+- Back to Unity and play `Assets/MeTACAST/Scenes/demo.unity`.
 
 ## Control
 * Hold `trigger` on the right controller to start selection, release `trigger` to confirm selection
@@ -48,6 +48,7 @@ VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been 
 [https://yulingyun.com/MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
 
 # User study data and R script
+[MeTACAST-study](https://github.com/LixiangZhao98/MeTACAST-study "MeTACAST-study")
 [osf](https://osf.io/dvj9n/ "osf")
 
 # Citations

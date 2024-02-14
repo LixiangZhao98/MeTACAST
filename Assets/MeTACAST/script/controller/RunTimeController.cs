@@ -56,12 +56,15 @@ public class RunTimeController : MonoBehaviour
             set
             {      
                 gRIDNum=value;
-        if (value == GRIDNum.grid100)
-            {gridNum = 100;}
+
         if (value == GRIDNum.grid64)
             gridNum = 64;
-        if (value == GRIDNum.grid200)
-            gridNum = 200;
+        if (value == GRIDNum.grid128)
+            {gridNum = 128;}
+        if (value == GRIDNum.grid256)
+            gridNum = 256;
+        if (value == GRIDNum.grid512)
+            gridNum = 512;
               if(Application.isPlaying)
              SwitchDatasetFromFile(dataset.ToString());
                 

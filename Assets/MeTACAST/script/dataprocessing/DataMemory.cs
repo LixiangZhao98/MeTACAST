@@ -31,7 +31,7 @@ public class DataMemory : MonoBehaviour
         {
           for(int n=0;n<name.FlagNames.Length;n++)
         {
-        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/my/data/flags/" + allParticle.name+"_"+ name.FlagNames[n]);
+        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/MeTACAST/data/flags/" + allParticle.name+"_"+ name.FlagNames[n]);
         for (int i = 0; i < flags.Length; i++)
         {
 
@@ -107,13 +107,13 @@ public class DataMemory : MonoBehaviour
     public static void LoadDataByByte(string loadFileName)
     {
 
-        allParticle.LoadDatasetByByte(Application.dataPath + "/my/data/data/" + loadFileName,loadFileName);
+        allParticle.LoadDatasetByByte(Application.dataPath + "/MeTACAST/data/data/" + loadFileName,loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength().x + " " + allParticle.GetSmoothLength().y + " " + allParticle.GetSmoothLength().z);
     }
     static public void LoadDataByCsv(string loadFileName)
     {
 
-        allParticle.LoadDatasetByCsv(Application.dataPath + "/my/data/data/" + loadFileName, loadFileName);
+        allParticle.LoadDatasetByCsv(Application.dataPath + "/MeTACAST/data/data/" + loadFileName, loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength());
     }
    
@@ -169,24 +169,24 @@ public class DataMemory : MonoBehaviour
 
      public static void StoreFlags(string ExtendstoreFileName)
     {
-        allParticle.StoreFlags(Application.dataPath + "/my/data/" + "/Flags/" + allParticle.name+"_"+ ExtendstoreFileName);
+        allParticle.StoreFlags(Application.dataPath + "/MeTACAST/data/" + "/Flags/" + allParticle.name+"_"+ ExtendstoreFileName);
 
     }
 
         public static void SaveSelectedAsNewData(string ExtendstoreFileName)
     {
-        allParticle.SaveSelectedAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+        allParticle.SaveSelectedAsNewData(Application.dataPath + "/MeTACAST/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
 
     }
 
             public static void SaveTargetAsNewData(string ExtendstoreFileName)
     {
-        allParticle.SaveTargetAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+        allParticle.SaveTargetAsNewData(Application.dataPath + "/MeTACAST/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
 
     }
               public static void SaveDataAsNewData(string ExtendstoreFileName)
     {
-        allParticle.SaveDataAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+        allParticle.SaveDataAsNewData(Application.dataPath + "/MeTACAST/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
 
     }
 
