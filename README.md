@@ -48,7 +48,7 @@ VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been 
 [https://yulingyun.com/MeTACAST/](https://yulingyun.com/MeTACAST/ "MeTACAST")
 
 # User study data and R script
-[MeTACAST-study](https://github.com/LixiangZhao98/MeTACAST-study "MeTACAST-study")
+[MeTACAST-study](https://github.com/LixiangZhao98/MeTACAST-study "MeTACAST-study")\
 [osf](https://osf.io/dvj9n/ "osf")
 
 # Citations
