@@ -2,7 +2,7 @@ MeTACAST: Target- and Context-aware Spatial Selection in VR
 ======
 ![MeTACAST_Image](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/MeTACAST/pic/MeTACAST.png "MeTACAST_Image")
 
-
+[Paper](https://doi.org/10.1109/TVCG.2023.3326517) (MeTACAST: Target- and Context-aware Spatial Selection in VR)|[Video](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video")
 MeTACAST is a set of selection techniques for particle data in VR environment. Users can select a group of particles with natural and simple 6DOF point/stroke input. Refer to the [Video](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video") for a quick review. For more details, please refer to our [Paper](https://doi.org/10.1109/TVCG.2023.3326517) (MeTACAST: Target- and Context-aware Spatial Selection in VR), which is presented on [IEEE Visualization 2023](https://ieeevis.org/year/2023/welcome "VIS2023") and published in the journal [IEEE Transactions on Visualization and Computer Graphics](https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=2945 "TVCG").\
 Any pull requests and issues are welcome. If you find it useful, could you please leave a star here? Thanks in advance.
 
