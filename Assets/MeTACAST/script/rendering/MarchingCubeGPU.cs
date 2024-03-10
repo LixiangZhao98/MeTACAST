@@ -1,14 +1,14 @@
 ﻿//The following code is modified from "unity-marching-cubes-gpu" by Pavel Kouřil. Original at: "https://github.com/pavelkouril/unity-marching-cubes-gpu"
 using System.Collections.Generic;
 using UnityEngine;
-using LixaingZhao.MeTACAST;
+
 
     public class MarchingCubeGPU : MonoBehaviour
     {
         public float MCGPUThreshold;
         public ComputeShader MarchingCubesCS;
         public Material meshMaterial;
-        public GameObject map;
+        public GameObject origin;
         public Texture3D DensityTexture { get; set; }
         public Texture3D PosTexture { get; set; }
         public Texture3D McFlagTexture { get; set; }
@@ -22,12 +22,10 @@ using LixaingZhao.MeTACAST;
         ComputeBuffer appendVertexBuffer;
         ComputeBuffer argBuffer;
         int[] args;
-        RenderDataRunTime r;
         Bounds bounds;
 
         public void Init()
         {
-            r = transform.parent.GetComponentInChildren<RenderDataRunTime>();
             kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
             ResolutionX = DataMemory.densityField.XNUM;
             ResolutionY = DataMemory.densityField.YNUM;
@@ -74,8 +72,8 @@ using LixaingZhao.MeTACAST;
 
             if (MCGPUThreshold != 0)
             {
-                meshMaterial.SetMatrix("_LocalToWorld", map.transform.localToWorldMatrix);
-                meshMaterial.SetMatrix("_WorldToLocal", map.transform.worldToLocalMatrix);
+                meshMaterial.SetMatrix("_LocalToWorld", origin.transform.localToWorldMatrix);
+                meshMaterial.SetMatrix("_WorldToLocal", origin.transform.worldToLocalMatrix);
                 Graphics.DrawProcedural(meshMaterial, bounds, MeshTopology.Triangles, args[0] * 3, 1);
 
             }
@@ -102,10 +100,12 @@ using LixaingZhao.MeTACAST;
         };
         private void OnDestroy()
         {
-            appendVertexBuffer.Release();
-            argBuffer.Release();
-     
-        }
+        if (!this.enabled)
+            return;
+        appendVertexBuffer.Release();
+        argBuffer.Release();
+
+    }
 
 
         public void SetMCGPUThreshold(float f)

@@ -1,90 +1,79 @@
 using UnityEngine;
-using LixaingZhao.MeTACAST;
+
 public class RenderDataRunTime : MonoBehaviour
 {
+    public GameObject visCenter;
+    public static float visRealSize = 0.3f; //real size in VR of visualization
+    public static float ratio;
     public Material unselected_mat;
     public Material selected_mat;
-    public Material target_mat;
-    public GameObject map;
-    public float mapRealSize=0.5f; //real size in VR of wim
-    public float ratio;
+
+
     [SerializeField]
-    [HideInInspector]public Mesh unselected_mesh0;
+    [HideInInspector]public static Mesh unselected_mesh;
     [SerializeField]
-    [HideInInspector]public Mesh selected_mesh0;
+    [HideInInspector]public static Mesh selected_mesh;
     [SerializeField]
-    [HideInInspector]public Mesh target_mesh0;
-      [SerializeField]
-    [HideInInspector]public Mesh unselected_mesh1;
-    [SerializeField]
-   [HideInInspector] public Mesh selected_mesh1;
-    [SerializeField]
-   [HideInInspector] public Mesh target_mesh1;
-   [HideInInspector] public bool frameBufferSwitch;
-     Matrix4x4 m;
+    [HideInInspector] public static Mesh[] target_mesh;
+
+    public static bool drawEnable;
+    private RunTimeController RC;
+    static int tarMeshNum;
+    Matrix4x4 m;
 
      private void Start()
      {
-        frameBufferSwitch=false;
+        drawEnable = false;
      }
+    void Awake()
+    {
+        RC = this.transform.parent.GetComponentInChildren<RunTimeController>();
+        tarMeshNum = RC.LoadFlagNames.Count;
+        target_mesh = new Mesh[tarMeshNum];
+        for (int i = 0; i < tarMeshNum; i++)
+            target_mesh[i] = new Mesh();
+    }
     private void Update()
     {
 
-        Draw(map, ratio);
-        // Draw(origin, 1f);
-    }
-
-    public void GenerateMesh(bool fromStarck=true)
-    {
-        if(!frameBufferSwitch)
-    {
-        DestroyImmediate(unselected_mesh0, true);
-        DestroyImmediate(selected_mesh0, true);
-        DestroyImmediate(target_mesh0, true);
-        unselected_mesh0 = new Mesh();
-        selected_mesh0 = new Mesh();
-        target_mesh0 = new Mesh();
-        DisplayParticles.GenerateMeshFromPg( unselected_mesh0, selected_mesh0, target_mesh0, DataMemory.allParticle, fromStarck);
-        ratio = 1f / (DataMemory.allParticle.XMAX - DataMemory.allParticle.XMIN) * mapRealSize;
-        frameBufferSwitch=true;
-    }
-    else
-    {
-        DestroyImmediate(unselected_mesh1, true);
-        DestroyImmediate(selected_mesh1, true);
-        DestroyImmediate(target_mesh1, true);
-        unselected_mesh1 = new Mesh();
-        selected_mesh1 = new Mesh();
-        target_mesh1 = new Mesh();
-        DisplayParticles.GenerateMeshFromPg( unselected_mesh1, selected_mesh1, target_mesh1, DataMemory.allParticle, fromStarck);
-
-        ratio = 1f / (DataMemory.allParticle.XMAX - DataMemory.allParticle.XMIN) * mapRealSize;
-         frameBufferSwitch=false;
-    }
-
-    }
-
-    public void Draw(GameObject g, float s)
-    {
-                if(!frameBufferSwitch)
+        if (drawEnable)
         {
-        
-            
-           m = Matrix4x4.TRS(g.transform.position, g.transform.rotation, new Vector3(s, s, s));
-            Graphics.DrawMesh(unselected_mesh1, m, unselected_mat, 1);
-            Graphics.DrawMesh(selected_mesh1, m, selected_mat, 1);
-             Graphics.DrawMesh(target_mesh1, m, target_mat, 1);
-            g.transform.localScale = new Vector3(s, s, s);
+            m = Matrix4x4.TRS(visCenter.transform.position, visCenter.transform.rotation, new Vector3(ratio, ratio, ratio));
+            visCenter.transform.localScale = new Vector3(ratio, ratio, ratio);
         }
+    }
 
-        else
+    public static void GenerateMesh(bool fromStarck = true)
+    {
+
+        DestroyImmediate(unselected_mesh, true);
+        DestroyImmediate(selected_mesh, true);
+        foreach (var m in target_mesh)
+            DestroyImmediate(m, true);
+
+        unselected_mesh = new Mesh();
+        selected_mesh = new Mesh();
+        target_mesh = new Mesh[tarMeshNum];
+        for (int i = 0; i < tarMeshNum; i++)
+            target_mesh[i] = new Mesh();
+        DisplayParticles.GenerateMeshFromPg(unselected_mesh, selected_mesh, target_mesh, DataMemory.allParticle, fromStarck);
+        ratio = 1f / (DataMemory.allParticle.XMAX - DataMemory.allParticle.XMIN) * visRealSize;
+        drawEnable = true;
+    }
+
+    void LateUpdate()
+    {
+
+        if (drawEnable)
         {
-                        
-           m = Matrix4x4.TRS(g.transform.position, g.transform.rotation, new Vector3(s, s, s));
-            Graphics.DrawMesh(unselected_mesh0, m, unselected_mat, 1);
-            Graphics.DrawMesh(selected_mesh0, m, selected_mat, 1);
-             Graphics.DrawMesh(target_mesh0, m, target_mat, 1);
-            g.transform.localScale = new Vector3(s, s, s);
+            Graphics.DrawMesh(unselected_mesh, m, unselected_mat, 1);
+            Graphics.DrawMesh(selected_mesh, m, selected_mat, 1);
+            for (int i = 0; i < target_mesh.Length; i++)
+                Graphics.DrawMesh(target_mesh[i], m, RC.LoadFlagNames[i].target_mat, 1);
         }
+    }
+    public void SetUnselectedUV1(Vector3[] lp)
+    {
+        unselected_mesh.SetUVs(1, lp);
     }
 }

@@ -10,7 +10,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace LixaingZhao.MeTACAST{
+
 public class GPUKDECsHelper
 {
     static ComputeShader KDE_Cs;
@@ -109,22 +109,40 @@ public class GPUKDECsHelper
                 dF.SetNodeGradient(i, new Vector3(gradx, grady, gradz));
             }
         });
-
-        Parallel.For(0, pG.GetParticlenum(), i =>
+        float minDen = float.MaxValue; float maxDen = float.MinValue;
+        float sum = 0f;
+        for (int i = 0; i < pG.GetParticlenum(); i++)
         {
-            pG.SetParticleDensity(i, Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF));//set particle density
+            float density = (float)Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF);
+            sum += density;
+            pG.SetParticleDensity(i, density);//set particle density
+            if (density > maxDen)
+                maxDen = density;
+            if (density < minDen)
+                minDen = density;
             pG.SetMySmoothLength(parSL_[i].x, parSL_[i].y, parSL_[i].z, i);//set smooth length of all the particles
 
             List<Vector3> v = Utility.Emit(pG.GetParticlePosition(i), Vector3.zero, dF, pG);
             pG.SetFlowEnd(i, (v[v.Count - 1]));
-        });
-        float sum = 0f;
-        for (int i = 0; i < pG.GetParticlenum(); i++)
-        {
-            sum += (float)pG.GetParticleDensity(i);
-        }
-        sum = sum / pG.GetParticlenum();
-        dF.SetAveNodeDensity(sum);
+        };
+
+        pG.MAXDEN = maxDen; pG.MINDEN = minDen;
+        dF.SetAveNodeDensity(sum / pG.GetParticlenum());
+        //Parallel.For(0, pG.GetParticlenum(), i =>
+        //{
+        //    pG.SetParticleDensity(i, Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF));//set particle density
+        //    pG.SetMySmoothLength(parSL_[i].x, parSL_[i].y, parSL_[i].z, i);//set smooth length of all the particles
+
+        //    List<Vector3> v = Utility.Emit(pG.GetParticlePosition(i), Vector3.zero, dF, pG);
+        //    pG.SetFlowEnd(i, (v[v.Count - 1]));
+        //});
+        //float sum = 0f;
+        //for (int i = 0; i < pG.GetParticlenum(); i++)
+        //{
+        //    sum += (float)pG.GetParticleDensity(i);
+        //}
+        //sum = sum / pG.GetParticlenum();
+        //dF.SetAveNodeDensity(sum);
 
         AddLUT(pG, dF);
 
@@ -173,7 +191,7 @@ public class GPUKDECsHelper
 
 
 }
-}
+
 
 
 

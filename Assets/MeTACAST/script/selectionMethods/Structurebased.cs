@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.MeTACAST{
+
 public class Structurebased : MonoBehaviour
 {
    static public List<Vector3> flowToMax = new List<Vector3>();
@@ -128,5 +128,4 @@ public class Structurebased : MonoBehaviour
         }
         DataMemory.AddParticles(selectedparticle);
     }
-}
 }

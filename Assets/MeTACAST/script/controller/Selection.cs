@@ -8,19 +8,33 @@
 using HTC.UnityPlugin.Vive;
 using System.Collections.Generic;
 using UnityEngine;
-using static LixaingZhao.MeTACAST.Enum;
+using static EnumVariables;
 
-namespace LixaingZhao.MeTACAST{
+
+
 public class Selection : MonoBehaviour
 {
-    SelectionTech selectionTech;
+    [SerializeField, SetProperty("SELECTIONTECH")]
+    private SelectionTech selectionTech = SelectionTech.Point;
+    public SelectionTech SELECTIONTECH
+    {
+        get { return selectionTech; }
+        set
+        {
+            selectionTech = value;
+            if (Application.isPlaying)
+                Init(selectionTech);
+
+        }
+    }
+
+   
     public Transform marker;
     public Transform map;
     public ControllerDraw controllerDraw;
 
 
     MarchingCubeGPU McGPU;
-    public RenderDataRunTime RD;
 
     //-----linebased
     float densityThreInitial = 0f;
@@ -31,15 +45,22 @@ public class Selection : MonoBehaviour
     public float radiusmovespeed = 1f;
 
     float eraseNum = 0f;
+
+
+    public void SwitchSelectionTech()
+    {
+
+        Init(selectionTech);
+
+    }
     public void Init(SelectionTech s)
     {
 
         McGPU = this.transform.parent.GetComponentInChildren<MarchingCubeGPU>();
-        RD = this.transform.parent.GetComponentInChildren<RenderDataRunTime>();
-
+        
         threshold_linear = 0f;
         selectionTech = s;
-        float ratio = 1f / (DataMemory.allParticle.XMAX - DataMemory.allParticle.XMIN) * RD.mapRealSize;
+        float ratio = 1f / (DataMemory.allParticle.XMAX - DataMemory.allParticle.XMIN) * RenderDataRunTime.visRealSize;
         marker.gameObject.transform.localScale = new Vector3(0.012f, 0.012f, 0.012f); R = 0.012f / ratio;
         switch (selectionTech)
         {
@@ -114,7 +135,7 @@ public class Selection : MonoBehaviour
             if (Baseline.Erase(map.InverseTransformPoint(marker.position), R, DataMemory.allParticle))
             {
                 eraseNum++;
-                RD.GenerateMesh();
+                RenderDataRunTime.GenerateMesh();
             };
 
 
@@ -160,20 +181,20 @@ public class Selection : MonoBehaviour
     public void Undo()
     {
         DataMemory.Return();
-        RD.GenerateMesh();
+        RenderDataRunTime.GenerateMesh();
         McGPU.SetMCGPUThreshold(0f);
     }
     public void Redo()
     {
         DataMemory.Forward();
-        RD.GenerateMesh();
+        RenderDataRunTime.GenerateMesh();
     }
     public void Reset()
     {
         DataMemory.StacksInitialize();
         Structurebased.Init();
         Linebased.Init();
-        RD.GenerateMesh();
+        RenderDataRunTime.GenerateMesh();
 
     }
 
@@ -188,7 +209,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             Pointbased.SelectParticles(map.InverseTransformPoint(marker.position), DataMemory.densityField, DataMemory.allParticle, McGPU);
-            RD.GenerateMesh();
+            RenderDataRunTime.GenerateMesh();
             McGPU.SetMCGPUThreshold(0f);
         }
     }
@@ -217,7 +238,7 @@ public class Selection : MonoBehaviour
 
 
             Linebased.SelectParticles(DataMemory.densityField, DataMemory.densityField2, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
-            RD.GenerateMesh();
+            RenderDataRunTime.GenerateMesh();
             controllerDraw.Initiate();
             Invoke("MCDisappear", 1f);
         }
@@ -230,7 +251,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
             DataMemory.Return();
-            RD.GenerateMesh();
+            RenderDataRunTime.GenerateMesh();
 
 
         }
@@ -243,7 +264,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
             Linebased.SelectParticles(DataMemory.densityField, DataMemory.densityField2, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
-            RD.GenerateMesh();
+            RenderDataRunTime.GenerateMesh();
         }
 
         if (moveyRight != 0)
@@ -293,7 +314,7 @@ public class Selection : MonoBehaviour
             Structurebased.SelectParticles(DataMemory.densityField, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
 
         
-            RD.GenerateMesh();
+            RenderDataRunTime.GenerateMesh();
 
             controllerDraw.Initiate();
             Invoke("MCDisappear", 1f);
@@ -306,7 +327,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
             DataMemory.Return();
-            RD.GenerateMesh();
+            RenderDataRunTime.GenerateMesh();
 
 
         }
@@ -319,7 +340,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
             Structurebased.SelectParticles(DataMemory.densityField, densityThreInitial * Mathf.Pow(2, threshold_linear), DataMemory.allParticle);
-            RD.GenerateMesh();
+            RenderDataRunTime.GenerateMesh();
         }
         if (moveyRight != 0)
         {
@@ -354,7 +375,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             brushInOnePress.AddRange(Baseline.SelectParticles(map.InverseTransformPoint(marker.position), R, DataMemory.allParticle));
-            RD.GenerateMesh(false);
+            RenderDataRunTime.GenerateMesh(false);
             brushNum++;
         }
 
@@ -384,5 +405,5 @@ public class Selection : MonoBehaviour
     }
 }
 
-}
+
 

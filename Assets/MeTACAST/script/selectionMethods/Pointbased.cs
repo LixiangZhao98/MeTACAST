@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.MeTACAST{
+
 public class Pointbased 
 {
  static List<int> targetIndex;
@@ -57,4 +57,4 @@ public class Pointbased
         return dF.VectorToBoxIndex(newPos, pG);
     }
 }
-}
+

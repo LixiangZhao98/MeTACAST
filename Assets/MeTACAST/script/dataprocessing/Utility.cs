@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.MeTACAST{
+
 public class Utility 
 {
     static public void q_sort(float[] f, int begin, int end)
@@ -515,7 +515,7 @@ public static List<int> ReviseFloodFilling(int index, double thre, DensityField 
 
 }
 
-}
+
 
 //    if (dF.GetNodeDensity(i) > thre && isVisited[i] == false)
 //                     {

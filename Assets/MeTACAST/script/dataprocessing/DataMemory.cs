@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace LixaingZhao.MeTACAST{
 public class DataMemory : MonoBehaviour
 {
 
@@ -103,7 +102,14 @@ public class DataMemory : MonoBehaviour
     [HideInInspector] public List<Vector3> particleflow_dest;
     [SerializeField]
     static public ParticleGroup allParticle = new ParticleGroup();
+    static public void LoadDataByPly(string loadFileName)
+    {
 
+        allParticle.LoadDatasetsByPly(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/", loadFileName);
+
+        Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength());
+
+    }
     public static void LoadDataByByte(string loadFileName)
     {
 
@@ -190,5 +196,4 @@ public class DataMemory : MonoBehaviour
 
     }
 
-}
 }

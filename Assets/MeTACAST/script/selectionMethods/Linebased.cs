@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.MeTACAST{
+
 public class Linebased 
 {
   static public List<Vector3> maxLine = new List<Vector3>();
@@ -139,5 +139,4 @@ public class Linebased
         DataMemory.AddParticles(selectedparticle);
 
     }
-}
 }

@@ -8,31 +8,37 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-namespace LixaingZhao.MeTACAST{
+
  public class DisplayParticles
 {
 
 
     // mesh for GPU
-    static public void GenerateMeshFromPg( Mesh m_unsel, Mesh m_sel,Mesh m_target, ParticleGroup pG, bool loadflagFormStack=true)
+    static public void GenerateMeshFromPg(Mesh m_unsel, Mesh m_sel, Mesh[] m_targets, ParticleGroup pG, bool loadflagFormStack = true)
     {
-        if(loadflagFormStack)
-        LoadFlagFromStack(pG);
+        if (loadflagFormStack)
+            LoadFlagFromStack(pG);
         List<Vector3> unselected = new List<Vector3>();
         List<Vector3> selected = new List<Vector3>();
-        List<Vector3> target = new List<Vector3>();
+        List<List<Vector3>> targets = new List<List<Vector3>>();
+
+        for (int i = 0; i < m_targets.Length; i++)
+        {
+            targets.Add(new List<Vector3>());
+        }
+
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {
             if (pG.GetFlag(i))
                 selected.Add(pG.GetParticlePosition(i));
             if (!pG.GetFlag(i))
             {
-                if(pG.GetTarget(i))
-                    target.Add(pG.GetParticlePosition(i));
+                if (pG.GetTarget(i))
+                    targets[pG.GetTargetType(i)].Add(pG.GetParticlePosition(i));
                 else
                     unselected.Add(pG.GetParticlePosition(i));
             }
-               
+
         }
 
         m_unsel.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
@@ -48,37 +54,45 @@ namespace LixaingZhao.MeTACAST{
 
         m_unsel.SetIndices(indecies, MeshTopology.Points, 0);
 
-        m_sel.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-         indecies = new int[selected.Count];
-
-        for (int i = 0; i < selected.Count; ++i)
+        if (m_sel != null)
         {
+            m_sel.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            indecies = new int[selected.Count];
 
-            indecies[i] = i;
+            for (int i = 0; i < selected.Count; ++i)
+            {
 
+                indecies[i] = i;
+
+            }
+            m_sel.vertices = selected.ToArray();
+
+            m_sel.SetIndices(indecies, MeshTopology.Points, 0);
         }
-        m_sel.vertices = selected.ToArray();
-
-        m_sel.SetIndices(indecies, MeshTopology.Points, 0);
 
 
-        m_target.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-        indecies = new int[target.Count];
-
-        for (int i = 0; i < target.Count; ++i)
+        for (int n = 0; n < m_targets.Length; n++)
         {
+            m_targets[n].indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+            indecies = new int[targets[n].Count];
 
-            indecies[i] = i;
+            for (int i = 0; i < targets[n].Count; ++i)
+            {
 
+                indecies[i] = i;
+
+            }
+            m_targets[n].vertices = targets[n].ToArray();
+
+            m_targets[n].SetIndices(indecies, MeshTopology.Points, 0);
         }
-        m_target.vertices = target.ToArray();
 
-        m_target.SetIndices(indecies, MeshTopology.Points, 0);
 
     }
-   
-    
-    
+
+
+
+
     static public void LoadFlagFromStack(ParticleGroup pG)
     {
         for (int i = 0; i < pG.GetParticlenum(); i++)   //clear flags  //  initialize the flags
@@ -148,4 +162,4 @@ namespace LixaingZhao.MeTACAST{
 
 }
  
-}
+

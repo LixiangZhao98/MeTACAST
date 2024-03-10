@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.MeTACAST{
+
 public class Baseline : MonoBehaviour
 {
     public static List<int> SelectParticles(Vector3 input, float R, ParticleGroup pG)
@@ -48,5 +48,5 @@ public class Baseline : MonoBehaviour
           
         
     }
-}
+
 }

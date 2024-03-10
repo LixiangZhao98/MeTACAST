@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using HTC.UnityPlugin.Vive;
-using LixaingZhao.MeTACAST;
+using UnityEditor;
 using UnityEngine;
-using static LixaingZhao.MeTACAST.Enum;
+using static EnumVariables;
+
 
 public class MenuController : MonoBehaviour
 {
     RunTimeController RC;
+    Selection selection;
     public GameObject PointUI;
     public GameObject BrushUI;
     public GameObject PaintUI;
@@ -27,7 +29,8 @@ public class MenuController : MonoBehaviour
 
         private void Awake()
         {
-            RC = this.gameObject.transform.parent.GetComponentInChildren<RunTimeController>();
+        selection  = this.gameObject.transform.parent.GetComponentInChildren<Selection>();
+        RC = this.gameObject.transform.parent.GetComponentInChildren<RunTimeController>();
             EnterMode(initMode);
         }
 
@@ -70,38 +73,41 @@ public class MenuController : MonoBehaviour
         }
 
          public void SwitchTo_Filament2()
-        {RC.SetGRIDNum(100);
-           RC.DATASET=Dataset.Flocculentcube2;
+        {
+         RC.SetGRIDNum(100);
+         RC.DATASET=Dataset.Flocculentcube2;
           
         }
 
          public void SwitchTo_Nbody1()
-        {RC.SetGRIDNum(64);
-           RC.DATASET=Dataset.nbody1;
+        {
+         RC.SetGRIDNum(64);
+         RC.DATASET=Dataset.nbody1;
         }
                  public void SwitchTo_Shell()
-        {RC.SetGRIDNum(100);
-           RC.DATASET=Dataset.ball_hemisphere;
+        {
+         RC.SetGRIDNum(100);
+         RC.DATASET=Dataset.ball_hemisphere;
         }
                  public void SwitchTo_fiveElipsoids()
         {RC.SetGRIDNum(100);
-           RC.DATASET=Dataset.fiveellipsolds; 
+         RC.DATASET=Dataset.fiveellipsolds; 
         }
 
         public void SwitchTo_Point()
         {
-           PointUI.SetActive(true); BrushUI.SetActive(false); PaintUI.SetActive(false);
-           RC.SwitchSelectionTech(SelectionTech.Point);
+        PointUI.SetActive(true); BrushUI.SetActive(false); PaintUI.SetActive(false);
+        selection.Init(SelectionTech.Point);
         }
         public void SwitchTo_Brush()
         {
-            PointUI.SetActive(false); BrushUI.SetActive(true); PaintUI.SetActive(false);
-           RC.SwitchSelectionTech(SelectionTech.Brush);
+        PointUI.SetActive(false); BrushUI.SetActive(true); PaintUI.SetActive(false);
+        selection.Init(SelectionTech.Brush);
         }
         public void SwitchTo_Paint()
         {
-            PointUI.SetActive(false); BrushUI.SetActive(false); PaintUI.SetActive(true);
-           RC.SwitchSelectionTech(SelectionTech.Paint);
+        PointUI.SetActive(false); BrushUI.SetActive(false); PaintUI.SetActive(true);
+        selection.Init(SelectionTech.Paint);
         }
 
 

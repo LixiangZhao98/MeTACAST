@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.MeTACAST{
+
 
 public class EditorController : MonoBehaviour
 {
@@ -52,4 +52,4 @@ public class EditorController : MonoBehaviour
 }
 
 
-}
+

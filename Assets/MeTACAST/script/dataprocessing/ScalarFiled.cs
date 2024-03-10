@@ -9,8 +9,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.MeTACAST
-{
+
 
     [System.Serializable]
     public class FieldNode
@@ -256,4 +255,4 @@ namespace LixaingZhao.MeTACAST
             return LUTUnit_;
         }
     }
-}
+
