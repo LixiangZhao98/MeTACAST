@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CustomUnsel
+  m_Name: MCMesh
   m_Shader: {fileID: 4800000, guid: 8875ee4e00a8e974ab5fe1c6a04d0206, type: 3}
   m_ShaderKeywords: EFFECT_BUMP _ALPHAPREMULTIPLY_ON _EMISSION _FADING_ON _REQUIRE_UV2
   m_LightmapFlags: 0

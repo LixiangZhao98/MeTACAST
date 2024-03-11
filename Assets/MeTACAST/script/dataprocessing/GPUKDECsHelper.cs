@@ -59,8 +59,8 @@ public class GPUKDECsHelper
         parPos.SetData(parPos_);
         gridPos.SetData(gridPos_);
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         //-------------------------------------------------------------------------------------------------kernel 0
 
         KDE_Cs.SetBuffer(kernel_Pilot, "partiPos", parPos);
@@ -76,7 +76,7 @@ public class GPUKDECsHelper
         KDE_Cs.SetBuffer(kernel_SL_Modified, "SL_ModifiedRW", SL_modified);
         KDE_Cs.SetBuffer(kernel_SL_Modified, "Gradient", nodeDen);
 
-        KDE_Cs.Dispatch(kernel_SL_Modified, pG.GetParticlenum()/1024,1,1);//new SL
+        KDE_Cs.Dispatch(kernel_SL_Modified, pG.GetParticlenum() / 1024, 1, 1);//new SL
 
 
         //-------------------------------------------------------------------------------------------------kernel 3
@@ -86,6 +86,9 @@ public class GPUKDECsHelper
         KDE_Cs.SetBuffer(kernel_FinalDensity, "SL_ModifiedRW", SL_modified);
 
         KDE_Cs.Dispatch(kernel_FinalDensity, dF.XNUM / 8, dF.YNUM / 8, dF.ZNUM / 8);  // Final density
+
+
+
         nodeDen.GetData(dens);
         SL_modified.GetData(parSL_);
         sw.Stop();
@@ -111,42 +114,52 @@ public class GPUKDECsHelper
         });
         float minDen = float.MaxValue; float maxDen = float.MinValue;
         float sum = 0f;
-        for (int i = 0; i < pG.GetParticlenum(); i++)
-        {
-            float density = (float)Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF);
-            sum += density;
-            pG.SetParticleDensity(i, density);//set particle density
-            if (density > maxDen)
-                maxDen = density;
-            if (density < minDen)
-                minDen = density;
-            pG.SetMySmoothLength(parSL_[i].x, parSL_[i].y, parSL_[i].z, i);//set smooth length of all the particles
 
-            List<Vector3> v = Utility.Emit(pG.GetParticlePosition(i), Vector3.zero, dF, pG);
-            pG.SetFlowEnd(i, (v[v.Count - 1]));
-        };
 
-        pG.MAXDEN = maxDen; pG.MINDEN = minDen;
-        dF.SetAveNodeDensity(sum / pG.GetParticlenum());
-        //Parallel.For(0, pG.GetParticlenum(), i =>
+        //for (int i = 0; i < pG.GetParticlenum(); i++)
         //{
-        //    pG.SetParticleDensity(i, Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF));//set particle density
+        //    float density = (float)Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF);
+        //    sum += density;
+        //    pG.SetParticleDensity(i, density);//set particle density
+        //    if (density > maxDen)
+        //        maxDen = density;
+        //    if (density < minDen)
+        //        minDen = density;
         //    pG.SetMySmoothLength(parSL_[i].x, parSL_[i].y, parSL_[i].z, i);//set smooth length of all the particles
 
         //    List<Vector3> v = Utility.Emit(pG.GetParticlePosition(i), Vector3.zero, dF, pG);
         //    pG.SetFlowEnd(i, (v[v.Count - 1]));
-        //});
-        //float sum = 0f;
-        //for (int i = 0; i < pG.GetParticlenum(); i++)
-        //{
-        //    sum += (float)pG.GetParticleDensity(i);
-        //}
-        //sum = sum / pG.GetParticlenum();
-        //dF.SetAveNodeDensity(sum);
+        //};
+
+        //pG.MAXDEN = maxDen; pG.MINDEN = minDen;
+        //dF.SetAveNodeDensity(sum / pG.GetParticlenum());
+        Parallel.For(0, pG.GetParticlenum(), i =>
+        {
+            pG.SetParticleDensity(i, Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF));//set particle density
+            pG.SetMySmoothLength(parSL_[i].x, parSL_[i].y, parSL_[i].z, i);//set smooth length of all the particles
+
+            List<Vector3> v = Utility.Emit(pG.GetParticlePosition(i), Vector3.zero, dF, pG);
+            pG.SetFlowEnd(i, (v[v.Count - 1]));
+        });
+
+        for (int i = 0; i < pG.GetParticlenum(); i++)
+        {
+            float density = (float)pG.GetParticleDensity(i);
+            sum += density;
+            if (density > maxDen)
+                maxDen = density;
+            if (density < minDen)
+                minDen = density;
+        }
+        sum = sum / pG.GetParticlenum();
+        pG.MAXDEN = maxDen; pG.MINDEN = minDen;
+        dF.SetAveNodeDensity(sum);
+
+
 
         AddLUT(pG, dF);
 
-       UnityEngine. Debug.Log("Finish density estimation on GPU; Finish gradient estimation on GPU; Finish particle density and SL estimation on GPU; Finish Adding particles to LUT on GPU");
+        UnityEngine.Debug.Log("Finish density estimation on GPU; Finish gradient estimation on GPU; Finish particle density and SL estimation on GPU; Finish Adding particles to LUT on GPU");
 
 
         SL_modified.Release();
@@ -286,7 +299,7 @@ public class GPUKDECsHelper
 //         KDE_Cs.SetBuffer(kernel_FinalDensity, "SL_ModifiedRW", SL_modified);
 
 //         KDE_Cs.Dispatch(kernel_FinalDensity, dF.XNUM / 8, dF.YNUM / 8, dF.ZNUM / 8);  // Final density
-        
+
 //         nodeDen.GetData(dens);
 //        // SL_modified.GetData(parSL_);
 //         AsyncGPUReadback.Request(SL_modified,request=>
@@ -299,7 +312,7 @@ public class GPUKDECsHelper
 //             NativeArray<Vector3> data = request.GetData<Vector3>();
 //             ProcessSLData(pG,dF,data);
 //         }
-        
+
 //         );
 //         AsyncGPUReadback.Request(nodeDen, request =>
 //         {
