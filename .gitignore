@@ -1,6 +1,7 @@
 Library/
 Temp/
 .vscode/
+.vs
 .vsconfig
 Logs/
 UserSettings/
