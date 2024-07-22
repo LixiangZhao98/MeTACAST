@@ -50,8 +50,8 @@ VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been 
 
 ## Install MeTACAST:
 - Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/MeTACAST/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/MeTACAST/archive/refs/heads/master.zip "archive").
-- Download Unity Hub and Create a new project. Please refer to sec.1 and sec.3 of ([tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf)) if you are new Unity user.
-- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin") and [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility") in this new project. Please refer to sec.7 in ([tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf)) to install packages if you are not familiar with it.
+- Download Unity Hub and Create a new project. Please refer to sec.1 and sec.3 of [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you are new Unity user.
+- Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin") and [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility") in this new project. Please refer to sec.7 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) to install packages if you are not familiar with it.
 - Set the `Stereo Rendering Mode` to `Multi Pass`. In the Unity editor, find `Edit/project setting/XR Plug-in Management/OpenVR/Stereo Rendering Mode/Multi Pass`.
 - Copy the `Assets/MeTACAST` folder in this repo and place it under the `Assets` folder of your new project.
 - Install [Steam](https://store.steampowered.com/ "Steam") on your PC and download `SteamVR`.
