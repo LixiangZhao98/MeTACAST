@@ -38,8 +38,6 @@ L. Zhao, T. Isenberg, F. Xie, H. -N. Liang and L. Yu, "MeTACAST: Target- and Con
 }
 ```
 
-## Project website
-https://yulingyun.com/MeTACAST/
 
 ## Related GitHub Repos
 [PointCloud-Visualization-Tool](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool "PointCloud-Visualization-Tool")
