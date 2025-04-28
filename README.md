@@ -1,7 +1,10 @@
 MeTACAST: Target- and Context-aware Spatial Selection in VR
 ======
-![MeTACAST_Image](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/MeTACAST/pic/MeTACAST.png "MeTACAST_Image")
-![GIF](https://github.com/LixiangZhao98/asset/blob/master/Publications/Videos/MeTACASTvideo_final.gif "Image")
+| ![MeTACAST_Image](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/MeTACAST/pic/MeTACAST.png "MeTACAST_Image") |
+|:--------------------------------------------------------------------------------------------------------------------------:|
+
+| ![GIF](https://github.com/LixiangZhao98/asset/blob/master/Publications/Videos/MeTACASTvideo_final.gif "Image") |
+|:-------------------------------------------------------------------------------------------------------------:|
 
 [Paper](https://doi.org/10.1109/TVCG.2023.3326517) | [Video](https://www.youtube.com/watch?v=R_WRfzgnOAM&t=1s "Video") | [MeTACAST user study data and R scripts](https://github.com/LixiangZhao98/MeTACAST-study "MeTACAST-study")
 
