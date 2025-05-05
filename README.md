@@ -88,17 +88,6 @@ VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been 
 [MeTACAST-study](https://github.com/LixiangZhao98/MeTACAST-study "MeTACAST-study")\
 [osf](https://osf.io/dvj9n/ "osf")
 
-# Citations
-```bibtex
-@article{zhao2023metacast,
-  title={MeTACAST: Target-and Context-aware Spatial Selection in VR},
-  author={Zhao, Lixiang and Isenberg, Tobias and Xie, Fuqi and Liang, Hai-Ning and Yu, Lingyun},
-  journal={IEEE Transactions on Visualization and Computer Graphics},
-  year={2023},
-  publisher={IEEE}
-}
-```
-
 # Thanks
 Many thanks to the authors of open-source repository:
 [unity-marching-cubes-gpu](https://github.com/pavelkouril/unity-marching-cubes-gpu "unity-marching-cubes-gpu")
