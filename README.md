@@ -65,18 +65,21 @@ VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been 
 * Hold `trigger` on the right controller to start selection, release `trigger` to confirm selection
 * Use `joysticker/touchpad` on the right controller to adjust density threshold (MeTABrush and MeTAPaint)
 * Hold `grip` to erase the selected region.
-* Hit the `undo`, `redo` and `reset` on the ui (above the data on the left controller) by the red sphere in your right controller to undo, redo and reset
-* To switch `selection techniques`, `resolution of the density grid` and `datasets`, click the gameobject `script/RunTimeController` in Hierarchy and switch them in the inspector window
+* Hit the `undo`, `redo` and `reset` on the ui by the red sphere in your right controller to undo, redo and reset
+* To switch `selection techniques`, `resolution of the density grid` and `datasets`, click the gameobject `data/Kernel Density Estimator` in Hierarchy and switch them in the inspector window
 
 
-<!-- # MeTACAST Demo
+# MeTACAST Demo
 ## Run the demo
 1. the demo only tests on `windows` platform
 2. download `MeTACAST_Demo.zip` from Releases and run `MeTACAST_Demo.exe` after connecting the PC-Powered VR Headsets 
 
 ## Control
 * open the menu with `Menu`, `AKey` or `Bkey` on the right controller to switch `selection techniques` and `datasets`
-* other operations and controls are the same as abovementioned -->
+* Hold `trigger` on the right controller to start selection, release `trigger` to confirm selection
+* Use `joysticker/touchpad` on the right controller to adjust density threshold (MeTABrush and MeTAPaint)
+* Hold `grip` to erase the selected region.
+* Hit the `undo`, `redo` and `reset` on the ui by the red sphere in your right controller to undo, redo and reset
 
 
 
