@@ -1,0 +1,87 @@
+// #pragma kernel SDF
+//
+// #define gridthreadNum 8
+// #define gridthreadNum 8
+// float4 gridStep;
+// float4 gridNum;
+//
+// StructuredBuffer<float3> gridPos;
+// RWStructuredBuffer<float> Dist;
+// float InterpolateVector(float3 pos);
+//
+//
+// [numthreads(gridthreadNum, gridthreadNum, gridthreadNum)]
+// void SDF(uint3 id : SV_DispatchThreadID)
+// {
+//     int idx = id.x + id.y * gridNum.x + id.z * gridNum.x * gridNum.y;
+//     float sum = 0;
+//     for (uint i = 0; i < ?; i++)
+//     {
+//         //TODO
+//     }
+//     Den[idx] = 0.5968310365946 / (SL.x * SL.y * SL.z) * sum;
+// }
+//
+// float3 GenerateRayDirection(int index, int totalDirections)
+// {
+//     float goldenRatio = (1 + sqrt(5)) / 2; // 黄金比例
+//     float phi = 2 * PI * index / goldenRatio; // 经度
+//     float cosTheta = 1 - (2 * index + 1) / totalDirections; // 纬度的余弦值
+//     float sinTheta = sqrt(1 - cosTheta * cosTheta); // 纬度的正弦值
+//
+//     float3 direction = float3(sinTheta * cos(phi), sinTheta * sin(phi), cosTheta);
+//     return normalize(direction);
+// }
+//
+// int NodePosToIndex(int z, int y, int x)
+// {
+//     return (z) * gridNum.x * gridNum.y + (y) * gridNum.x + x;
+// }
+//
+// float InterpolateVector(float3 pos)
+// {
+//     float x_scaled = (pos.x - parMinPos.x) / gridStep.x;
+//     int xbin = (int) x_scaled;
+//     float xratio = x_scaled - xbin;
+//
+//     float y_scaled = (pos.y - parMinPos.y) / gridStep.y;
+//     int ybin = (int) y_scaled;
+//     float yratio = y_scaled - ybin;
+//
+//     float z_scaled = (pos.z - parMinPos.z) / gridStep.z;
+//     int zbin = (int) z_scaled;
+//     float zratio = z_scaled - zbin;
+//
+//     
+//     if (zbin > gridNum.z || ybin > gridNum.y || xbin > gridNum.x || zbin < 0 || xbin < 0 || ybin < 0)
+//         return -1;
+//     else
+//     {
+//        float dens1 = Den[NodePosToIndex(zbin, ybin, xbin)] + (Den[NodePosToIndex(zbin, ybin, xbin + 1)] - Den[NodePosToIndex(zbin, ybin, xbin)]) * xratio;
+//        float dens2 = Den[NodePosToIndex(zbin, ybin + 1, xbin)] + (Den[NodePosToIndex(zbin, ybin + 1, xbin + 1)] - Den[NodePosToIndex(zbin, ybin + 1, xbin)]) * xratio;
+//        float dens3 = dens1 + (dens2 - dens1) * yratio;
+//
+//         dens1 = Den[NodePosToIndex(zbin + 1, ybin, xbin)] + (Den[NodePosToIndex(zbin + 1, ybin, xbin + 1)] - Den[NodePosToIndex(zbin + 1, ybin, xbin)]) * xratio;
+//         dens2 = Den[NodePosToIndex(zbin + 1, ybin + 1, xbin)] + (Den[NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)] - Den[NodePosToIndex(zbin + 1, ybin + 1, xbin)]) * xratio;
+//        float dens4 = dens1 + (dens2 - dens1) * yratio;
+//
+//         return dens3 + (dens4 - dens3) * zratio;
+//      }
+// }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
