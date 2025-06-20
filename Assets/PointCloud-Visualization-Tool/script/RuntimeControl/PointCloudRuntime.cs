@@ -13,8 +13,9 @@
         public CustomGeneratorEnum customGenerator_LastFrame;  
 
     
-        private void Start() 
+        private void Start()
         {
+            dataset = Dataset.nbody2__bin;
             custom_LastFrame = custom;
             dataset_LastFrame = dataset;
             customGenerator_LastFrame = customGenerator;
