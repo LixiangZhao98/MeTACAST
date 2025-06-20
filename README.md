@@ -51,7 +51,7 @@ Unity version requirement: Version `2020.3.38f1` and `2021.3.19f1` have been tes
 VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been tested. \
 (Oculus is not supported currently, it wil be added in the future. If you want to use Oculus you need to import Oculus package and revise the input logic.)
 
-## Install MeTACAST:
+## Install MeTACAST in Unity:
 - Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/MeTACAST/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/MeTACAST/archive/refs/heads/master.zip "archive").
 - Download Unity Hub and Create a new project. Please refer to sec.1-5 of [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you are new Unity user.
 - Install [SteamVR Plugin](https://assetstore.unity.com/packages/tools/integration/steamvr-plugin-32647 "SteamVR Plugin") and [VIVE Input Utility](https://assetstore.unity.com/packages/tools/integration/vive-input-utility-64219 "VIVE Input Utility") in this new project. Please refer to sec.7 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) to install packages if you are not familiar with it.
@@ -69,7 +69,7 @@ VR headset requirement: `HTC Vive Pro/Pro2/Pro eye` and `Valve Index` have been 
 * To switch `selection techniques`, `resolution of the density grid` and `datasets`, click the gameobject `data/Kernel Density Estimator` in Hierarchy and switch them in the inspector window
 
 
-# MeTACAST Demo
+# Run the MeTACAST Executable Demo
 ## Run the demo
 1. the demo only tests on `windows` platform
 2. download `MeTACAST_Demo.zip` from Releases and run `MeTACAST_Demo.exe` after connecting the PC-Powered VR Headsets 
