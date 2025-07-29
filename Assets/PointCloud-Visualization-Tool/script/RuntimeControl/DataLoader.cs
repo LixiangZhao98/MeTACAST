@@ -105,4 +105,20 @@ public class DataLoader : MonoBehaviour
     {
         particles.SaveAsPcd(location);
     }
+    public void SaveFlag(string ExtendstoreFileName)
+    {
+        particles.StoreFlags(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/Flags/" + particles.name+"_"+ ExtendstoreFileName);
+
+    }
+    public void SaveSelectedAsNewData(string ExtendstoreFileName)
+    {
+        particles.SaveSelectedAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + particles.name+"_"+ ExtendstoreFileName+".bin");
+
+    }
+
+    public void SaveTargetAsNewData(string ExtendstoreFileName)
+    {
+        particles.SaveTargetAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + particles.name+"_"+ ExtendstoreFileName+".bin");
+
+    }
 }

@@ -1,6 +1,7 @@
 Library/
 Temp/
 .vscode/
+.idea/
 .vs/MetaCast_Github
 .vsconfig
 Logs/
@@ -40,3 +41,4 @@ obj/
 *.svd
 *.pdb
 *.opendb
+.idea/

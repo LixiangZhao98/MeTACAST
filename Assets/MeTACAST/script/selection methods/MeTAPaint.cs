@@ -47,7 +47,7 @@ public class MeTAPaint : MonoBehaviour
     public static void AdjustThreEnd(DensityField dF, Particles pG,PointRenderer pR,ref float thre,ref float thre_init)
     {
         Selection.AddParticles(SelectParticles(dF, thre_init * Mathf.Pow(2, thre), pG));
-        pR.GenerateMesh(true);
+        pR.GenerateMesh();
     }
     
     public static List<int> SelectParticles(DensityField dF, float thre, Particles pG)

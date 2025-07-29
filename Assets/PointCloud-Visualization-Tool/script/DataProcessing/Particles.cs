@@ -194,6 +194,8 @@ public class Particles
         return particles[i].GetIsSelected();
     }
 
+
+
     /// <summary>
     /// Gets the target flag of a specific particle
     /// </summary>
@@ -696,13 +698,63 @@ public class Particles
     /// <param name="name">Name of the file to store</param>
     public void StoreFlags(string name)
     {
-        List<int> flagtrue = Selection.GetpStack().ToList();
-
+        List<int> flagtrue = new List<int>();
+        for (int i = 0; i < GetParticlenum(); i++)
+        {
+            if(GetIsSelected(i))
+                flagtrue.Add(i);
+        }
+        
         if (flagtrue.Count == 0)
-            Debug.Log("No marked particles");
+            Debug.Log("No selected particles");
         else
         {
             SavePointCloud.FlagsToBytes(name, flagtrue.ToArray());
+        }
+    }
+    
+    public void SaveSelectedAsNewData(string name)
+    {
+        List<int> flagtrue = new List<int>();
+        for (int i = 0; i < GetParticlenum(); i++)
+        {
+            if(GetIsSelected(i))
+                flagtrue.Add(i);
+        }
+
+        if (flagtrue.Count == 0)
+            Debug.Log("No selected particles");
+        else
+        {
+            List<Vector3> dataPos = new List<Vector3>();
+            foreach (var d in flagtrue)
+            {
+                dataPos.Add(GetParticleObjectPos(d));
+            }
+            SavePointCloud.Vec3sToBytes(name, dataPos.ToArray());
+        }
+    }
+
+    public void SaveTargetAsNewData(string name)
+    {
+
+        List<int> targettrue = new List<int>();
+        for (int i = 0; i < GetParticlenum(); i++)
+        {
+            if(GetTarget(i))
+                targettrue.Add(i);
+        }
+
+        if (targettrue.Count == 0)
+            Debug.Log("No Target Particles");
+        else
+        {
+            List<Vector3> dataPos = new List<Vector3>();
+            foreach (var t in targettrue)
+            {
+                dataPos.Add(GetParticleObjectPos(t));
+            }
+            SavePointCloud.Vec3sToBytes(name, dataPos.ToArray());
         }
     }
 

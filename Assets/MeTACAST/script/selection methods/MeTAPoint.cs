@@ -25,7 +25,7 @@ public static class MeTAPoint
             dF.FloodFilling(CalculateFocus(pG, dF, input), dF.InterpolateDensity(input), pG, true);
         }
       
-        pR.GenerateMesh(true);
+        pR.GenerateMesh();
         mcHelper.SetMCGPUThreshold(0f);
     }
     

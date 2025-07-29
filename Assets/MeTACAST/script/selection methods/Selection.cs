@@ -10,7 +10,7 @@ public class Selection : MonoBehaviour
     private Transform pointcloudData;
 
     public ControllerDraw cD;
-    private Particles pG;
+    private static Particles pG;
     private DensityField dF;
     private DensityField dF2;
     private PointRenderer pR;
@@ -40,14 +40,26 @@ public class Selection : MonoBehaviour
             newl.AddRange(l);
             pStack.Push(newl);
         }
+
+        UpdateIsSelected();
     }
 
     public static void AddParticlesDirectly(List<int> l)  //only add new, previous is not considered
     {
         pStack.Push(l);
+
+        UpdateIsSelected();
     }
 
-
+    public static void UpdateIsSelected()
+    {
+        for (var i = 0; i < pG.GetParticlenum(); i++) //clear flags  //  initialize the flags
+            pG.SetIsSelected(i, false);
+        var collection = GetpStack();
+        for (var i = 0; i < collection.Count; i++) // load flag
+            pG.SetIsSelected(collection[i], true);
+    }
+    
     public static List<int> GetpStack()
     {
         if(pStack.Count>0)
@@ -61,12 +73,14 @@ public class Selection : MonoBehaviour
         if (pStack.Count == 0)
             return;
         pOperateStack.Push(  pStack.Pop());
+        UpdateIsSelected();
     }
     public static void Forward()
     {
         if (pOperateStack.Count == 0)
             return;
         pStack.Push(pOperateStack.Pop());
+        UpdateIsSelected();
     }
      static void ReleaseOperatorStack() 
     {
@@ -76,7 +90,7 @@ public class Selection : MonoBehaviour
     {
         pStack = new Stack<List<int>>();
         pOperateStack=new Stack<List<int>>();
-
+        UpdateIsSelected();
     }
 
     
@@ -209,20 +223,20 @@ public class Selection : MonoBehaviour
     public void  Undo()
     {
         Return();
-        pR.GenerateMesh(true);
+        pR.GenerateMesh();
         mcHelper.SetMCGPUThreshold(0f);
     }
     public void Redo()
     {
         Forward();
-        pR.GenerateMesh(true);
+        pR.GenerateMesh();
     }
     public void Reset()
     {
         StacksInitialize();
         MeTAPaint.Init();
         MeTABrush.Init();
-        pR.GenerateMesh(true);
+        pR.GenerateMesh();
     }
 
     
@@ -276,7 +290,7 @@ public class Selection : MonoBehaviour
 
             Selection.AddParticles(MeTAPaint.SelectParticles(dF, densityThreInitial * Mathf.Pow(2, threshold_linear), pG));
 
-            pR.GenerateMesh(true);
+            pR.GenerateMesh();
 
             cD.ResetDrawing();
             
@@ -303,7 +317,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
             AddParticles(MeTAPaint.SelectParticles(dF, densityThreInitial * Mathf.Pow(2, threshold_linear), pG));
-            pR.GenerateMesh(true);
+            pR.GenerateMesh();
         }
         if (moveyRight != 0)
         {
@@ -346,7 +360,7 @@ public class Selection : MonoBehaviour
 
 
             AddParticles( MeTABrush.SelectParticles(dF, dF2, densityThreInitial * Mathf.Pow(2, threshold_linear), pG));
-            pR.GenerateMesh(true);
+            pR.GenerateMesh();
             cD.ResetDrawing();
             Invoke("MCDisappear", 1f);
         }
@@ -359,7 +373,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.JoystickTouch))
         {
             Return();
-            pR.GenerateMesh(true);
+            pR.GenerateMesh();
 
 
         }
@@ -373,7 +387,7 @@ public class Selection : MonoBehaviour
         {
             AddParticles( MeTABrush.SelectParticles(dF, dF2, densityThreInitial * Mathf.Pow(2, threshold_linear), pG));
             
-            pR.GenerateMesh(true);
+            pR.GenerateMesh();
         }
 
         if (moveyRight != 0)
@@ -425,7 +439,7 @@ public class Selection : MonoBehaviour
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger)&&MenuController.currentMode==MenuController.Mode.Default)
         {
             brushInOnePress.AddRange(Baseline.SelectParticles(pointcloudData.InverseTransformPoint(marker.position), R, pG));
-            pR.GenerateMesh(false);
+            pR.GenerateMesh();
             brushNum++;
         }
 
